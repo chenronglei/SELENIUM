@@ -1,1 +1,3 @@
-12
+WebDriver属于selenium中设计出来操作浏览器的一套API  
+站在WebDriver角度，它支持多种编程语言；站在编程语言角度,WebDriver是Python实现web自动化的第三方库
+# 4.1从定位元素开始

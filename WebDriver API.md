@@ -35,3 +35,5 @@ find_element_by_class_name("s_btn")  百度搜索按钮,不能有空格，能唯
 专门用来定位文本链接  
 &lt;a class="mnav" href="http://news.baidu.com" target="_blank">新闻&lt;/a>  
 find_element_by_link_test("新闻")  通过元素标签对之间的文本信息来定位元素
+## 4.1.6 partial link定位 
+partial link是对link的一个补充。有时候文本链接会比较长，可以取一部分定位来唯一标识这个链接

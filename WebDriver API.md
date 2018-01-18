@@ -9,4 +9,12 @@ WebDriver提供八种元素定位方法，Python语言中，对应的方法如�
 - link test       find_element_by_link_test()  
 - partial link test find_element_by_partial_link_test()  
 - xpath           find_element_by_xpath()  
-- css selector    find_element_by_css_selector()
+- css selector    find_element_by_css_selector()  
+
+
+**firefox浏览器使用54.0版本安装Firebug,firepath插件，新版本的Firefox浏览器不支持Firebug,firepath**  
+## 4.1.1 id定位
+id在html是唯一的  
+[定位方法](https://jingyan.baidu.com/article/19192ad81ab005e53e5707d6.html)  
+find_element_by_id("kw")  百度输入框   
+find_element_by_id("su")  百度搜索按钮  

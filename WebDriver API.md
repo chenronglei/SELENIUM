@@ -18,3 +18,14 @@ id在html是唯一的
 [定位方法](https://jingyan.baidu.com/article/19192ad81ab005e53e5707d6.html)  
 find_element_by_id("kw")  百度输入框   
 find_element_by_id("su")  百度搜索按钮  
+## 4.1.2 name定位
+name在html可不唯一  
+定位方法同4.1.1  
+find_element_by_name("wd") 百度输入框  
+百度搜索框没有提供搜索按钮
+## 4.1.3 class定位
+定位方法同4.1.1  
+class="s_ipt"  
+class="btn self-btn bg s_btn"  
+find_element_by_class_name("s_ipt")  百度输入框  
+find_element_by_class_name("s_btn")  百度搜索按钮,不能有空格，能唯一标识就行

@@ -114,4 +114,6 @@ driver.find_element_by_xpath("//*[@id='pp']").send_keys("Root_123")
 time.sleep(2)  
 driver.find_element_by_xpath("//*[@id='btlogin']").click()  
 time.sleep(3)   
-driver.quit()
+driver.quit()  
+
+clear()可以单击任何可以单击的对象

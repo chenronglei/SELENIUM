@@ -84,5 +84,12 @@ find.element()与find_element_by_xxx 底层实现是一致的，推荐使用前�
 > driver.set_window_size(1480,600)  
 
 浏览器以全屏打开  
-driver.maximize_window()
+driver.maximize_window()  
 
+ 
+## 4.2.2控制浏览器后退、前进  
+driver.back()  
+driver.forward()
+
+## 4.2.3模拟浏览器刷新
+driver.refresh()

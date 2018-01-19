@@ -117,3 +117,11 @@ time.sleep(3)
 driver.quit()  
 
 clear()可以单击任何可以单击的对象
+## 4.3.2 WebElement接口常用方法
+包括4.1节的8种定位方法及上面的3种方法都是；以下还有一些常用的：  
+- submit() 有时候submint()可以和click()互换，但应用范围远不及click()广泛  
+- size     获得元素尺寸  
+- text     获得元素文本  
+&lt;label class="hint">请填写企业邮箱的完整帐号，或管理员帐号。&lt;/label>
+- get_attribute(name)  返回元素的属性值  
+- id_displayed()       返回元素的值是否可见

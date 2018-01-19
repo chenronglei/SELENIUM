@@ -65,4 +65,8 @@ driver.find_element_by_xpath("//input[@value='百度一下']").click()
 
 使用firepath插件能方便的找到xpath语法:选择元素后，直接在xpath框中生成xpath语法  
 ![](https://github.com/crl608/SELENIUM/blob/master/firepath.png)  
-> driver.find_element_by_xpath("//*[@id='searchBtn']").click()
+> driver.find_element_by_xpath("//*[@id='searchBtn']").click()  
+
+## 4.1.8 CSS定位
+CSS语法更加简洁，XPATH学习更简单。只要掌握一种就可以解决大部分的定位问题  
+

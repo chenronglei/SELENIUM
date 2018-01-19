@@ -77,4 +77,12 @@ from selenium.webdriver.common.by import By
 find.element(By.NAME,"wd")  
 ...  
 
-find.element()与find_element_by_xxx 底层实现是一致的，推荐使用前面介绍的find_element_by_xxx方法
+find.element()与find_element_by_xxx 底层实现是一致的，推荐使用前面介绍的find_element_by_xxx方法  
+# 4.2控制浏览器
+## 4.2.1控制浏览器窗口大小  
+浏览器以某种尺寸打开  
+> driver.set_window_size(1480,600)  
+
+浏览器以全屏打开  
+driver.maximize_window()
+

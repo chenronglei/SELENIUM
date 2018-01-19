@@ -63,3 +63,5 @@ driver.find_element_by_xpath("//input[@value='百度一下']").click()
 如果一个属性不能唯一地区分一个元素，我们使用逻辑运算符连接多个属性来定位一个元素  
 > driver.find_element_by_xpath("//input[@id='kw' and @class='su']/span/input"
 
+使用firepath插件能方便的找到xpath语法:选择元素后，直接在xpath框中生成xpath语法  
+

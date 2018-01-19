@@ -64,4 +64,5 @@ driver.find_element_by_xpath("//input[@value='百度一下']").click()
 > driver.find_element_by_xpath("//input[@id='kw' and @class='su']/span/input"
 
 使用firepath插件能方便的找到xpath语法:选择元素后，直接在xpath框中生成xpath语法  
-
+![](https://github.com/crl608/SELENIUM/blob/master/firepath.png)  
+> driver.find_element_by_xpath("//*[@id='searchBtn']").click()

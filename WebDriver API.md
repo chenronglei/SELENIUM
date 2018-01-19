@@ -58,6 +58,7 @@ driver.find_element_by_xpath("//input[@value='百度一下']").click()
 
 假定qq搜索按钮没有唯一标识的属性值，使用它的上一级属性来定位  
 > driver.find_element_by_xpath("//div[@class='searchBtn']/button").click()  
+
 **使用逻辑运算符** 
 如果一个属性不能唯一地区分一个元素，我们使用逻辑运算符连接多个属性来定位一个元素  
 > driver.find_element_by_xpath("//input[@id='kw' and @class='su']/span/input"

@@ -43,4 +43,11 @@ Xpath和CSS定位，提供了灵活的定位，可以通过不同的方式定位
 XPath是一种在xml文档中定位元素的语言。因为HTML可以看成xml的一种实现。所有selenium可以使用这种强大的语言在WEB应用中定位元素  
 **绝对路径定位**  
 一级一级往下查找，div[7]表示当前层级下的第7个div标签
-> driver.find_element_by_xpath("/html/body/div[7]/div/div/div/strong/a").click()
+> driver.find_element_by_xpath("/html/body/div[7]/div/div/div/strong/a").click()  
+
+**利用元素属性定位**  
+下图中第一行中中 // 表示当前页面某个目录下，input表示定位元素的标签名，[@id='kw']表示这个元素的id属性值为kw
+> driver.find_element_by_xpath("//input[@id='kw']").send_keys("Python 38")  
+driver.find_element_by_xpath("//input[@value='百度一下']").click()  
+
+如果不想指定标签名，标签名可以用\*代替,且元素的任意属性都可以用来定位，只要能唯一标识元素

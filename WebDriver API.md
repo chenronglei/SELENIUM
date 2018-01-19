@@ -93,3 +93,25 @@ driver.forward()
 
 ## 4.2.3模拟浏览器刷新
 driver.refresh()
+# 4.3简单元素操作
+Webdriver最常用的几个方法:  
+- clear() 清除文本  
+- send_keys(\*value) 模拟按键输入 
+- click()      单击元素  
+
+## 4.3.1 登陆minieye邮箱
+> \# coding=utf-8  
+import time  
+from selenium import webdriver  
+driver = webdriver.Firefox()  
+driver.get("https://exmail.qq.com/cgi-bin/loginpage")  
+time.sleep(2)   
+driver.find_element_by_xpath("//*[@id='inputuin']").clear()  
+driver.find_element_by_xpath("//*[@id='inputuin']").send_keys("chenronglei@minieye.cc")  
+time.sleep(2)  
+driver.find_element_by_xpath("//*[@id='pp']").clear()  
+driver.find_element_by_xpath("//*[@id='pp']").send_keys("Root_123")  
+time.sleep(2)  
+driver.find_element_by_xpath("//*[@id='btlogin']").click()  
+time.sleep(3)   
+driver.quit()

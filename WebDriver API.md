@@ -134,7 +134,7 @@ ActionChains类提供了鼠标操作的常用方法:
 - drag_and_drop()  拖动  
 - move_to_element() 鼠标悬停  
 
-## 鼠标右击操作
+## 1.鼠标右击操作
 > from selenium import webdriver  
 from selenium.webdriver.common.action_chains import ActionChains   //导入提供鼠标操作的ActionChains类  
 right_click=driver.find_element_by_xpath(".//*[@id='navBeta']/div[1]/div[1]/strong/a")  
@@ -143,5 +143,10 @@ ActionChains(driver).context_click(right_click).perform()
 ActionChains(driver) 调用ActionChains()类，将浏览器驱动driver作为参数传入  
 context_click()方法拥有模拟鼠标右键动作，需要指定元素定位  
 perform()  整个操作的提交动作
+
+## 2.鼠标悬停  
+> click=driver.find_element_by_xpath("//*[@id='navMore']/span")  
+ActionChains(driver).move_to_element(click).perform()  
+
 
 

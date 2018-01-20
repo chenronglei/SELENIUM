@@ -124,4 +124,24 @@ clear()可以单击任何可以单击的对象
 - text     获得元素文本  
 &lt;label class="hint">请填写企业邮箱的完整帐号，或管理员帐号。&lt;/label>
 - get_attribute(name)  返回元素的属性值  
-- id_displayed()       返回元素的值是否可见
+- id_displayed()       返回元素的值是否可见  
+# 4.4鼠标事件
+WebDriver中，将这些鼠标操作的方法封装在ActionChains类提供  
+ActionChains类提供了鼠标操作的常用方法:  
+- perform() 执行所有ActionChains中存储的行为
+- content_click()  右击  
+- double_click()   双击  
+- drag_and_drop()  拖动  
+- move_to_element() 鼠标悬停  
+
+## 鼠标右击操作
+> from selenium import webdriver  
+from selenium.webdriver.common.action_chains import ActionChains   //导入提供鼠标操作的ActionChains类  
+right_click=driver.find_element_by_xpath(".//*[@id='navBeta']/div[1]/div[1]/strong/a")  
+ActionChains(driver).context_click(right_click).perform()  
+
+ActionChains(driver) 调用ActionChains()类，将浏览器驱动driver作为参数传入  
+context_click()方法拥有模拟鼠标右键动作，需要指定元素定位  
+perform()  整个操作的提交动作
+
+

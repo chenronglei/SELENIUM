@@ -160,4 +160,4 @@ click2=driver.find_element_by_xpath("html/body/div[2]")
 ActionChains(driver).drag_and_drop(click1,click2).perform()  
 driver.quit()  
 
-
+# 4.5键盘事件

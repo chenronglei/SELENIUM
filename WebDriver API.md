@@ -148,5 +148,16 @@ perform()  整个操作的提交动作
 > click=driver.find_element_by_xpath("//*[@id='navMore']/span")  
 ActionChains(driver).move_to_element(click).perform()  
 
+## 3.鼠标双击操作
+> click=driver.find_element_by_xpath("//*[@id='navBeta']/div[1]/div[3]/strong/a")  
+ActionChains(driver).double_click(click).perform()
+
+## 4. 鼠标拖放操作
+> driver = webdriver.Firefox()  
+driver.get("http://sahitest.com/demo/dragDropMooTools.htm")  
+click1=driver.find_element_by_xpath("//*[@id='dragger']")  
+click2=driver.find_element_by_xpath("html/body/div[2]")  
+ActionChains(driver).drag_and_drop(click1,click2).perform()  
+driver.quit()  
 
 

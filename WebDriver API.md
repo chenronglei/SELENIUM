@@ -161,3 +161,19 @@ ActionChains(driver).drag_and_drop(click1,click2).perform()
 driver.quit()  
 
 # 4.5键盘事件
+在使用键盘按键方法之前需要先导入keys类  
+> from selenium.webdriver.common.keys import Keys  
+
+常用的键盘操作:  
+send_keys(Keys.BACK_SPACE)      删除键  
+send_keys(Keys.SPACE)           空格键  
+send_keys(Keys.TAB)             制表键
+send_keys(Keys.ESCAPE)          ESC  
+send_keys(Keys.ENTER)           Enter  
+send_keys(Keys.CONTROL,'a')     Ctrl+A  
+send_keys(Keys.CONTROL,'c')     Ctrl+c  
+send_keys(Keys.CONTROL,'x')     Ctrl+x  
+send_keys(Keys.CONTROL,'v')     Ctrl+v  
+send_keys(Keys.F1)              F1
+...  
+send_keys(Keys.F12)             键盘F12  

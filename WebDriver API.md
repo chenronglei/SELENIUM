@@ -238,3 +238,7 @@ else:
 &nbsp;&nbsp;&nbsp;&nbsp;print ('time out')  
 print (time.ctime())  
 driver.quit()  
+
+## 4.7.2隐式等待  
+隐式等待式通过一定的时长等待页面上某元素加载完成，如果超出了设置的时长元素还没有被加载，则抛出NoSuchElementException异常  
+WebDriver提供implictly_wait()方式实现隐式等待，默认设置为0

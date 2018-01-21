@@ -236,8 +236,8 @@ for i in range(10):
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time.sleep(1)  
 else:  
 &nbsp;&nbsp;&nbsp;&nbsp;print ('time out')  
-print (time.ctime())  
-driver.quit()  
+print (time.ctime())    #打出当前系统时间  
+driver.quit()  
 
 ## 4.7.2隐式等待  
 隐式等待式通过一定的时长等待页面上某元素加载完成，如果超出了设置的时长元素还没有被加载，则抛出NoSuchElementException异常  
@@ -260,4 +260,8 @@ finally:
 
 
 上例中implicitly_wait设置为10s,但它并不影响脚本执行的速度；其次，implicitly_wait并不针对某个元素进行等待。  
-当脚本执行到某个元素，如果可以定位，则继续执行；如果不能定位，则以轮询的方式不断判断元素是否被定位到。超出设置时长还没定位到，抛出异常
+当脚本执行到某个元素，如果可以定位，则继续执行；如果不能定位，则以轮询的方式不断判断元素是否被定位到。超出设置时长还没定位到，抛出异常  
+## 4.7.3  sleep休眠方法  
+脚本执行到某个位置做固定时间的休眠  
+time.sleep(5)              休眠5s
+time.sleep(0.5)            休眠0.5s

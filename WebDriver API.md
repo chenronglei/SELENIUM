@@ -202,3 +202,21 @@ text = driver.find_element_by_xpath("//*[@id='useraddr']").text
 print (text)  
 
 title,current_url,text分别获取当前页面的标题、URL和指定元素的文本。使用登陆后的这些信息进行验证
+
+# 4.7设置元素等待  
+大多数web应用程序使用AJAX技术，当浏览器在加载页面元素时，页面的元素可能不是同时被加载完成的。存在因为加载某个元素延迟而造成ElementNotVisibleException的情况出现，降低脚本的稳定性。  
+可以设置元素等待来改善这种问题导致的不稳定  
+**WebDriver提供两种类型的等待：显示等待和隐式等待**  
+## 4.7.1显示等待  
+显示等待使WebDriver等待某个条件成立时继续执行，否则达到最大时长抛出超时异常TimeoutException  
+> from selenium import webdriver  
+from selenium.webdriver.common.by import By  
+from selenium.webdriver.support.ui import WebDriverWait  
+from selenium.webdriver.support import expected_conditions as EC
+driver=webdriver.Firefox()  
+driver.get("http://www.baidu.com")  
+element = WebDriverWait(driver,5,0.5).until(EC.presence_of_element_located((By.ID,"kw")))  
+element.send_keys('selenium')
+driver.quit()  
+
+每隔0.5秒检测一次是否加载了id为kw的元素，最多检测5s,否则报超时错误

@@ -219,4 +219,22 @@ element = WebDriverWait(driver,5,0.5).until(EC.presence_of_element_located((By.I
 element.send_keys('selenium')
 driver.quit()  
 
-每隔0.5秒检测一次是否加载了id为kw的元素，最多检测5s,否则报超时错误
+每隔0.5秒检测一次是否加载了id为kw的元素，最多检测5s,否则报超时错误  
+
+使用is_displayed的方法同样可以实现，且更好理解
+> from selenium import webdriver  
+import time  
+driver=webdriver.Firefox()  
+driver.get("http://www.baidu.com")  
+print (time.ctime())  
+for i in range(10):     
+&nbsp;&nbsp;&nbsp;&nbsp;try:          
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if driver.find_element_by_id("kw12").is_displayed():  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break  
+&nbsp;&nbsp;&nbsp;&nbsp;except:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time.sleep(1)  
+else:  
+&nbsp;&nbsp;&nbsp;&nbsp;print ('time out')  
+print (time.ctime())  
+driver.quit()  

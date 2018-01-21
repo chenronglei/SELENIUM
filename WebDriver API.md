@@ -177,3 +177,28 @@ send_keys(Keys.CONTROL,'v')     Ctrl+v
 send_keys(Keys.F1)              F1
 ...  
 send_keys(Keys.F12)             键盘F12  
+
+# 4.6获得验证信息  
+可以从页面获取一些信息验证用例执行是否成功  ,用的最多的几种验证信息title,URL,text  
+> from selenium import webdriver  
+import time  
+driver=webdriver.Firefox()  
+driver.get("https://exmail.qq.com/cgi-bin/loginpage")  
+print ('before')  
+title=driver.title  
+print (title)  
+url=driver.current_url  
+print (url)  
+driver.find_element_by_xpath("//*[@id='inputuin']").send_keys("chenronglei@minieye.cc")  
+driver.find_element_by_xpath("//*[@id='pp']").send_keys("Root_123")  
+driver.find_element_by_xpath("//*[@id='btlogin']").click()  
+time.sleep(5)  
+print ('after')  
+title=driver.title  
+print (title)  
+url=driver.current_url  
+print (url)  
+text = driver.find_element_by_xpath("//*[@id='useraddr']").text  
+print (text)  
+
+title,current_url,text分别获取当前页面的标题、URL和指定元素的文本。使用登陆后的这些信息进行验证

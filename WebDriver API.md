@@ -287,3 +287,19 @@ driver.quit()
 - partial link test find_elements_by_partial_link_test()  
 - xpath           find_elements_by_xpath()  
 - css selector    find_elements_by_css_selector()  
+
+使用xpath来查找一组元素  
+> from selenium import webdriver  
+import time  
+driver=webdriver.Firefox()  
+driver.get("http://survey.1diaocha.com/Survey/_SurveyQuestions_sociality_56984455933522.html")  
+inputs=driver.find_elements_by_xpath("//input[@type='checkbox']")  
+for i in inputs:  
+&nbsp;&nbsp;&nbsp;&nbsp;i.click()  
+&nbsp;&nbsp;&nbsp;&nbsp;time.sleep(1)  
+inputs.pop().click()  
+time.sleep(5)  
+driver.quit() 
+
+使用pop()方法取一组元素的最后一个
+

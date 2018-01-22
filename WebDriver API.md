@@ -303,3 +303,30 @@ driver.quit()
 
 使用pop()方法取一组元素的最后一个
 
+# 4.9多表单切换  
+Web应用中会遇到frame/iframe表单嵌套页面的应用，WebDriver对于frame/iframe表单内嵌页面上的元素无法直接定位，需要使用switch_to.frame()将当前定位的定位的主体切换为frame/iframe表单内嵌页面中  
+frame.html内容见 E:\python\3.6\4\frame.html  
+> from selenium import webdriver  
+import time  
+import os  
+driver=webdriver.Firefox()  
+file_path='file:///'+os.path.abspath('frame.html')  
+driver.get(file_path)  
+#切换到iframe  
+driver.switch_to.frame("if")  
+driver.find_element_by_id("kw").send_keys("python")  
+driver.find_element_by_id("su").click()  
+time.sleep(3)  
+driver.quit()  
+
+switch_to.frame()默认可以直接取表单的id或name属性。如果没有可以的id和name属性，可以通过下面的方式进行定位  
+> #先通过xpath定位到iframe  
+xf = driver.find_element_by_xpath("//*[@class='if']")  
+#再将定位对象传给switch_to.frame()  
+driver.switch_to.frame(xf)
+...  
+driver.switch_to.parent_frame()  #跳出当前表一级表单 ，进入多级表单，通过switch_to.default_content()调到最外层页面
+
+
+
+

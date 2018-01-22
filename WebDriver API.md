@@ -265,3 +265,25 @@ finally:
 脚本执行到某个位置做固定时间的休眠  
 time.sleep(5)              休眠5s  
 time.sleep(0.5)            休眠0.5s  
+# 4.8定位一组元素  
+定位一组元素的方式与定位一个元素的方法类似，区别在于多了一个s  
+> from selenium import webdriver  
+import time  
+driver=webdriver.Firefox()  
+driver.get("http://survey.1diaocha.com/Survey/_SurveyQuestions_sociality_56984455933522.html")  
+inputs=driver.find_elements_by_tag_name("input")  
+for i in inputs:  
+&nbsp;&nbsp;&nbsp;&nbsp;if i.get_attribute('type')=='checkbox':  
+&nbsp;&nbsp;&nbsp;&nbsp;i.click()  
+&nbsp;&nbsp;&nbsp;&nbsp;time.sleep(1)  
+time.sleep(5)  
+driver.quit()  
+
+- id              find_elements_by_id()  
+- name            find_elements_by_name()  
+- class name      find_elements_by_class_name()  
+- tag name        find_elements_by_tag_name()  
+- link test       find_elements_by_link_test()  
+- partial link test find_elements_by_partial_link_test()  
+- xpath           find_elements_by_xpath()  
+- css selector    find_elements_by_css_selector()  

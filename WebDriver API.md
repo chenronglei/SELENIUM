@@ -352,6 +352,32 @@ driver.switch_to_window(search_windows)
 driver.find_element_by_xpath("//*[@id='kw']").send_keys("python")  
 driver.find_element_by_xpath("//*[@id='su']").click()  
 
+# 4.11警告框处理  
+使用switch_to_alert()定位到告警（alert,confirm,prompt）,然后使用下面的方法进行操作  
+- text   返回alert,confirm,prompt中的文字信息  
+- accept()   接受现有警告框  
+- dismiss()  解散现有警告框  
+- send_keys(keysToSend)  发送文本至警告框  
+> from selenium import webdriver  
+from selenium.webdriver.common.action_chains import ActionChains  
+import time  
+driver=webdriver.Firefox()  
+driver.implicitly_wait(10)  
+driver.get("http://www.baidu.com")  
+#鼠标悬停至"设置"按钮  
+link=driver.find_element_by_xpath("//*[@id='u1']/a[8]")  
+time.sleep(3)  
+ActionChains(driver).move_to_element(link).perform()  
+#打开搜索设置按钮  
+driver.find_element_by_link_text("搜索设置").click()  
+#保存配置  
+time.sleep(2)  
+driver.find_element_by_xpath("//*[@id='gxszButton']/a[1]").click()  
+#接受警告框  
+driver.switch_to_alert().accept()  
+time.sleep(2)  
+driver.quit()  
+
 
 
 

@@ -405,6 +405,8 @@ driver.find_element_by_xpath("//*[@id='js-repo-pjax-container']/div[2]/div[1]/di
 time.sleep(3)  
 driver.quit  
 
+如果能找打上传的input标签，基本就可以使用这种方法。这种方法避免了操作windows控件步骤
+
 
 
 

@@ -407,7 +407,25 @@ driver.quit
 
 如果能找打上传的input标签，基本就可以使用这种方法。这种方法避免了操作windows控件步骤  
 ## 4.12.2Autolt实现的上传 
-不推荐这种方法
+不推荐这种方法  
+
+# 4.13下载文件  
+> from selenium import webdriver  
+import os  
+#为了让firefox浏览器能够实现下载，需要通过FirefoxProfile对其进行一些设置  
+fp = webdriver.FirefoxProfile()  
+#设置成2指定下载路径，0代表浏览器默认下载路径  
+fp.set_preference("browser.download.folderList",2)  
+#是否显示开始，True为显示，False为不显示  
+fp.set_preference("browser.download.manager.showWhenStarting",False)  
+#指定所下载文件目录,os.getcwd()用于返回当前目录  
+fp.set_preference("browser.download.dir",os.getcwd())  
+print (os.getcwd())  
+#指定要下载页面的Content-type值,"application/octet-stream"为文件类型，具体参考 http://tool.oschina.net/commons  
+fp.set_preference("browser.helperApps.neverAsk.saveToDisk","application/octet-stream")  
+driver=webdriver.Firefox(firefox_profile=fp)  
+driver.get("https://www.python.org/downloads/release/python-2714/")  
+driver.find_element_by_xpath("//*[@id='content']/div/section/article/table/tbody/tr[9]/td[1]/a").click()
 
 
 

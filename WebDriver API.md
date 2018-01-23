@@ -425,7 +425,28 @@ print (os.getcwd())
 fp.set_preference("browser.helperApps.neverAsk.saveToDisk","application/octet-stream")  
 driver=webdriver.Firefox(firefox_profile=fp)  
 driver.get("https://www.python.org/downloads/release/python-2714/")  
-driver.find_element_by_xpath("//*[@id='content']/div/section/article/table/tbody/tr[9]/td[1]/a").click()
+driver.find_element_by_xpath("//*[@id='content']/div/section/article/table/tbody/tr[9]/td[1]/a").click()  
 
-
+# 4.14 操作cookie  
+有时候需要验证浏览器中cookie是否正确。webDriver提供了操作Cookie的相关方法，可以读取、添加、删除cookie  
+- get_cookies()     获取所有cookie  
+- get_cookie(name)  返回自动的key为"name"的cookie信息  
+- add_cookie(cookie_dict)  添加cookie,"cookie_dict"指字典对象，必须有name和value值  
+- delete_cookie(name,ooptionsString)  删除cookie信息  
+- delete_all_cookies()    删除所有cookie  
+> from selenium import webdriver  
+driver=webdriver.Firefox()  
+driver.get("https://www.youdao.com/")  
+#获取cookie信息  
+cookie=driver.get_cookies()  
+print (cookie)  
+#向cookie的name和value中添加会话信息  
+driver.add_cookie({'name':'key-aaaaaa','value':'value-bbbbbb'})  
+#遍历cookies中的name 和value信息并打印  
+for cookie in driver.get_cookies():  
+&nbsp;&nbsp;&nbsp;&nbsp;print ("%s -> %s" %(cookie['name'],cookie['value']))  
+#删除cookie  
+driver.delete_cookie('YOUDAO_MOBILE_ACCESS_TYPE')  
+for cookie in driver.get_cookies():  
+&nbsp;&nbsp;&nbsp;&nbsp;print ("%s -> %s" %(cookie['name'],cookie['value']))  
 

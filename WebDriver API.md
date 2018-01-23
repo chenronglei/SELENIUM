@@ -382,7 +382,7 @@ driver.quit()
 Web页面上实现文件上传有两种方式:  
 - 普通上传:将本地文件的路径作为一个值放到input标签中，通过form表单将这个值提交给服务器  
 - 插件上传:一般指基于Flash、javaScript或Ajax等技术所实现的上传功能  
-## send_keys()实现的上传  
+## 4.12.1send_keys()实现的上传  
 通过input标签实现的上传功能，将其看成一个输入框，通过send_keys()指定本地文件路径的方式实现文件上传  
 > from selenium import webdriver  
 import time  
@@ -405,8 +405,9 @@ driver.find_element_by_xpath("//*[@id='js-repo-pjax-container']/div[2]/div[1]/di
 time.sleep(3)  
 driver.quit  
 
-如果能找打上传的input标签，基本就可以使用这种方法。这种方法避免了操作windows控件步骤
-
+如果能找打上传的input标签，基本就可以使用这种方法。这种方法避免了操作windows控件步骤  
+## 4.12.2Autolt实现的上传 
+不推荐这种方法
 
 
 

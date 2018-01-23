@@ -327,6 +327,32 @@ driver.switch_to.frame(xf)
 ...  
 driver.switch_to.parent_frame()  #跳出当前表一级表单 ，进入多级表单，通过switch_to.default_content()调到最外层页面
 
+# 4.10窗口切换  
+WebDriver提供switch_to.window()，实现在不同窗口切换  
+> from selenium import webdriver  
+import time  
+driver=webdriver.Firefox()  
+driver.implicitly_wait(10)  
+driver.get("http://www.baidu.com")  
+#获取baidu搜索框句柄  
+search_windows=driver.current_window_handle  
+driver.find_element_by_xpath("//*[@id='u1']/a[7]").click()  
+driver.find_element_by_xpath("//*[@id='passport-login-pop-dialog']/div/div/div/div[4]/a").click()  
+#获取当前打开所有窗口的句柄  
+all_handles=driver.window_handles  
+#进入注册窗口  
+for handle in all_handles:  
+&nbsp;&nbsp;&nbsp;&nbsp;if handle != search_windows:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver.switch_to.window(handle)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_xpath("//*[@id='TANGRAM__PSP_3__userName']").send_keys("budouniwan")  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_xpath("//*[@id='TANGRAM__PSP_3__password']").send_keys("budouniwan")  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time.sleep(2)  
+#回到搜索窗口  
+driver.switch_to_window(search_windows)  
+driver.find_element_by_xpath("//*[@id='kw']").send_keys("python")  
+driver.find_element_by_xpath("//*[@id='su']").click()  
+
+
 
 
 

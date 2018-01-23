@@ -382,7 +382,28 @@ driver.quit()
 Web页面上实现文件上传有两种方式:  
 - 普通上传:将本地文件的路径作为一个值放到input标签中，通过form表单将这个值提交给服务器  
 - 插件上传:一般指基于Flash、javaScript或Ajax等技术所实现的上传功能  
-## send_keys()实现的上传
+## send_keys()实现的上传  
+通过input标签实现的上传功能，将其看成一个输入框，通过send_keys()指定本地文件路径的方式实现文件上传  
+> from selenium import webdriver  
+import time  
+driver=webdriver.Firefox()  
+driver.implicitly_wait(10)  
+driver.get("https://github.com/login")  
+time.sleep(3)  
+driver.find_element_by_xpath("//*[@id='login_field']").send_keys("chenhugua@163.com")  
+time.sleep(2)  
+driver.find_element_by_xpath("//*[@id='password']").send_keys("Root_123")  
+time.sleep(2)  
+driver.find_element_by_xpath("//*[@id='login']/form/div[4]/input[3]").click()  
+time.sleep(2)  
+driver.find_element_by_xpath("//*[@id='your_repos']/div/div[2]/ul/li[6]/a/span/span").click()  
+time.sleep(2)  
+#上传文件,本地文件的路径中\需要进行转义  
+driver.find_element_by_xpath("//*[@id='js-repo-pjax-container']/div[2]/div[1]/div[5]/div[1]/a[1]").click()  
+time.sleep(2)  
+driver.find_element_by_xpath("//*[@id='js-repo-pjax-container']/div[2]/div[1]/div[2]/form[2]/div[2]/p/input").send_keys("E:\\readme.txt")  
+time.sleep(3)  
+driver.quit  
 
 
 

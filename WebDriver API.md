@@ -450,3 +450,21 @@ driver.delete_cookie('YOUDAO_MOBILE_ACCESS_TYPE')
 for cookie in driver.get_cookies():  
 &nbsp;&nbsp;&nbsp;&nbsp;print ("%s -> %s" %(cookie['name'],cookie['value']))  
 
+# 4.15 调用JavaScript  
+借助JavaScript来控制浏览器的滚动条。WebDriver提供了excute_script()方法来执行JavaScript代码  
+> from selenium import webdriver  
+import time  
+driver=webdriver.Firefox()  
+driver.get("https://www.baidu.com/")  
+#搜索
+driver.find_element_by_id("kw").send_keys("selenium")  
+driver.find_element_by_id("su").click()  
+#设置浏览器窗口大小,目的是让窗口出现滚动条  
+driver.set_window_size(600,600)  
+time.sleep(2)  
+#通过javascript设置浏览器窗口的滚动条位置  
+js = "window.scrollTo(100,450);"  
+driver.execute_script(js)  
+time.sleep(3)  
+driver.quit()  
+

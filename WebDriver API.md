@@ -378,6 +378,11 @@ driver.switch_to_alert().accept()
 time.sleep(2)  
 driver.quit()  
 
+# 4.12上传文件  
+Web页面上实现文件上传有两种方式:  
+- 普通上传:将本地文件的路径作为一个值放到input标签中，通过form表单将这个值提交给服务器  
+- 插件上传:一般指基于Flash、javaScript或Ajax等技术所实现的上传功能  
+## send_keys()实现的上传
 
 
 

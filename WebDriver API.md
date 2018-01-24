@@ -530,6 +530,14 @@ driver.find_element_by_name("wd").send_keys("selenium")
 driver.find_element_by_id("su").click()  
 driver.quit()  
 
+#  本章小结  
+- 自动化脚本开发中，遇到最多的问题是元素定位和操作  
+- 精通前端技术非常有助于自动化用例的编写，熟悉使用xpath和css技术会让定位变得容易很多；精通JavaScript、j可以有更多方式操作web页面  
+- 开发人员在设计代码的时候考虑自动化，为必要的元素加上规范的id和name，自动化工作会变得轻松  
+- 一方面需要学好自动化技术，另外一方面需要得到整个团队的配合和支持  
+- 需要评估项目是否适合引入自动化测试
+
+
 
 
 

@@ -494,7 +494,7 @@ time.sleep(5)
 print("stop")  
 driver.execute_script("arguments[0].pause()",video)  
 
-# 4.16 屏幕截图  
+# 4.17 屏幕截图  
 > from selenium import webdriver  
 import time  
 driver=webdriver.Firefox()  
@@ -502,3 +502,9 @@ driver.implicitly_wait(10)
 driver.get("http://baidu.com/")  
 #屏幕截图  
 driver.get_screenshot_as_file("E:\\python\\3.6\\4\\baidu.png")  
+
+# 4.18 退出窗口  
+- quit()     退出相关的驱动程序和关闭所有的窗口  
+- close()    关闭当前窗口  
+
+

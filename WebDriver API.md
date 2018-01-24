@@ -515,7 +515,21 @@ driver.get_screenshot_as_file("E:\\python\\3.6\\4\\baidu.png")
 识别率很难达到100%  
 ## 4.记录cookie  
 通过add_cookie()方法将用户名、密码写入浏览器cookie。再次访问时服务器将直接读取浏览器的cookie进行访问  
-这种方法最大的问题是如何从cookie中找到用户名和密码对应的key值,可以直接咨询开发获得，或是get_cookies()获取所有的cookies(但不太好找到用户名、密码对应的cookie)
+这种方法最大的问题是如何从cookie中找到用户名和密码对应的key值,可以直接咨询开发获得，或是get_cookies()获取所有的cookies(但不太好找到用户名、密码对应的cookie)  
+# 4.20 Web_Driver原理  
+Web_Driver是按照Server-client来设计的：Server端就是Remote Server,可以是任意的浏览器;Client是我们的测试代码，以http请求的方式发送给被测试的浏览器(Server)  
+> # logging模块给运行中的应用提供了一个标准的信息输出接口
+import logging  
+import time  
+from selenium import webdriver  
+#basicConfig()开启的debug模式只能捕获到客户端向服务器发送的POST请求  
+logging.basicConfig(level=logging.DEBUG)  
+driver = webdriver.Firefox()  
+driver.get("http://www.baidu.com")  
+driver.find_element_by_name("wd").send_keys("selenium")  
+driver.find_element_by_id("su").click()  
+driver.quit()  
+
 
 
 

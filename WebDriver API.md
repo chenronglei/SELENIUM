@@ -515,7 +515,7 @@ driver.get_screenshot_as_file("E:\\python\\3.6\\4\\baidu.png")
 识别率很难达到100%  
 ## 4.记录cookie  
 通过add_cookie()方法将用户名、密码写入浏览器cookie。再次访问时服务器将直接读取浏览器的cookie进行访问  
-这种方法最大的问题是如何从cookie中找到用户名和密码对应的key值
+这种方法最大的问题是如何从cookie中找到用户名和密码对应的key值,可以直接咨询开发获得，或是get_cookies()获取所有的cookies(但不太好找到用户名、密码对应的cookie)
 
 
 

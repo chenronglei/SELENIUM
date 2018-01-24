@@ -468,3 +468,28 @@ driver.execute_script(js)
 time.sleep(3)  
 driver.quit()  
 
+# 4.16 处理HTML5的视频播放  
+HTML5已渐渐成为主流。WebDriver支持在指定的浏览器上测试HTML5;另外使用javaScript功能也可以测试这些功能，就可以在任意的浏览器上测试HTML5  
+HTML5指定了一个新的元素<video>来指定，指定了一个标准方式来嵌入电影片段  
+ > from selenium import webdriver  
+import time  
+driver=webdriver.Firefox()  
+driver.implicitly_wait(10)  
+driver.get("http://videojs.com/")  
+video=driver.find_element_by_xpath("//*[@id='preview-player_html5_api']")  
+
+"""返回播放文件地址：javaScript有个内置对象叫arguments,包含了函数调用的参数组，0  
+表示取对象的第一个值，currentSrc返回当前音频/视频的URL"""  
+url= driver.execute_script("return arguments[0].currentScr",video)  
+print (url)  
+
+#播放视频  
+print("start")  
+driver.execute_script("return arguments[0].play()",video)  
+
+#播放5秒种  
+time.sleep(5)  
+
+#暂停视频  
+print("stop")  
+driver.execute_script("arguments[0].pause()",video)  

@@ -55,7 +55,17 @@ class TestCount(unittest.TestCase):
 #直接使用  
 if __name__ == '__main__':  
 #unittest提供了全局main()方法，方便地将一个单元测试模块变成可直接运行的脚本，自动执行'test'命令开头的测试方法  
-&nbsp;&nbsp;&nbsp;&nbsp;unittest.main() 
+&nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
+
+执行结果  
+> ==================== RESTART: E:\python\3.6\7\7.1.1_2.py ====================
+test start
+test end
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.010s
+
+OK
 
 
 

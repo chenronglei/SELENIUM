@@ -10,32 +10,52 @@ Python语言下有多种单元测试框架，如doctest、unittest、pytest、no
 被测试类calculator.py:  
 > #计算机类  
 class Count:  
-    def __init__(self,a,b):  
-	    self.a = int(a)  
-	    self.b = int(b)  
-    #计算加分  
-    def add(self):  
-        return self.a + self.b   
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self,a,b):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.a = int(a)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.b = int(b)  
+&nbsp;&nbsp;&nbsp;&nbsp;#计算加分  
+&nbsp;&nbsp;&nbsp;&nbsp;def add(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.a + self.b   
         
 不用测试框架的单元测试:  
 > from calculator import Count  
 #测试两个正式相加  
 class TestCount:  
-    def test_add(self):
-        #如果try内执行异常，except抛出自定义异常。如果try正常，执行else  
-        try:  
-            j = Count(2,3)
-            add = j.add()  
-            assert(add == 5),'Integer addition result error!'
-        except AssertionError as msg:
-            print (msg)
-        else:
-            print ('Test pass!')
+&nbsp;&nbsp;&nbsp;&nbsp;def test_add(self):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#如果try内执行异常，except抛出自定义异常。如果try正常，执行else  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j = Count(2,3)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;add = j.add()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assert(add == 5),'Integer addition result error!'
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;except AssertionError as msg:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (msg)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ('Test pass!')
 #执行测试类的方法  
 mytest=TestCount()  
 mytest.test_add()  
 
-
+存在的问题：首先测试的程序的写法没有一定的规范可以遵循，不统一的代码维护起来十分麻烦；其次，需要编写大量的辅助代码才能进行单元测试  
+为了让单元测试更肉昂扬维护和编写，最好的方式是遵循一定的规范来编写测试用例，这也是单元测试框架的初衷  
+**用单元测试框架写单元测试**  
+> from calculator import Count  
+import unittest  
+#创建TestCount类继承TestCase类，TestCase类看出是对特定类进行测试的集合  
+class TestCount(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;#setUp()方法是测试用例执行前的初始化工作  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test start")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_add(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j = Count(2,3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#调用unittest框架所提供的assertEqual()方法对add()返回值进行断言  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(j.add(),5)  
+&nbsp;&nbsp;&nbsp;&nbsp;#tearDown()方法是测试用例执行后的善后工作  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("test end")  
+#直接使用  
+if __name__ == '__main__':  
+#unittest提供了全局main()方法，方便地将一个单元测试模块变成可直接运行的脚本，自动执行'test'命令开头的测试方法  
+&nbsp;&nbsp;&nbsp;&nbsp;unittest.main() 
 
 
 

@@ -108,7 +108,27 @@ if __name__ == '__main__':
 &nbsp;&nbsp;&nbsp;&nbsp;#print (suite)  
 #执行测试,调用unittest框架的TextTestRunner()类，通过它的run()方法来运行suite所组装的测试用例  
 &nbsp;&nbsp;&nbsp;&nbsp;runner = unittest.TextTestRunner()  
-&nbsp;&nbsp;&nbsp;&nbsp;runner.run(suite)
+&nbsp;&nbsp;&nbsp;&nbsp;runner.run(suite)  
+
+## 7.1.3 断言方法  
+unittest框架的TestCase类提供以下方法用于测试结果的判断  
+- assertEqual(first,second,msg=None) 断言第一个参数与第二个参数是否相等，如果不相等则测试失败，msg是可选参数，用于测试失败时打印的信息  
+> from calculator import Count  
+import unittest  
+#创建TestCount类继承TestCase类，TestCase类看出是对特定类进行测试的集合  
+class Test(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number = input("Enter a number:")  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.number = int(number)  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_case(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(self.number,10,msg="Your number is not 10")  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass  
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
+    
+    
+
 
 
 

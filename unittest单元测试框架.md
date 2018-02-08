@@ -72,6 +72,43 @@ OK
 一个Test Case的实例就是一个测试用例。就是一个完整的测试流程，包括测试前测试环境的搭建(setUp)、实现测试过程的代码(run)，以及测试后环境的还原(tearDown)  
 单元测试的本质就是一个测试用例就是一个完整的测试单元，通过执行这个测试单元，可以对某一个功能进行验证  
 **Test Suite**  
-一个功能的验证往往需要多个测试用例，可以把多个测试用例集合在一起来执行来执行，这就产生了测试套件TestSuite的概念。
+一个功能的验证往往需要多个测试用例，可以把多个测试用例集合在一起来执行来执行，这就产生了测试套件TestSuite的概念。  
+**Test Runner**  
+测试的执行也是单元测试的一个重要概念，一般单元测试框架中都会提供丰富的执行策略和执行结果  
+在unittest中，通过TextTestRunner类提供的run()方法来执行test suite/test case。test runner可以使用图形界面、文本界面，或返回一个特殊值等方式来表示测试执行的结果  
+**Test Fixture**  
+对一个测试用例环境的搭建和销毁，就是一个fixture,通过覆盖TestCase的setUp()和tearDown()方法来实现。  
+注意：tearDown的过程很重要，要为下一个test case留下一个干净的环境  
+> from calculator import Count  
+import unittest  
+#创建TestCount类继承TestCase类，TestCase类看出是对特定类进行测试的集合  
+class TestCount(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;#setUp()方法是测试用例执行前的初始化工作  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test start")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_add(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j = Count(2,3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#调用unittest框架所提供的assertEqual()方法对add()返回值进行断言  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(j.add(),5)  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_add2(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j = Count(41,76)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("123")  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(j.add(),117)  
+&nbsp;&nbsp;&nbsp;&nbsp;#tearDown()方法是测试用例执行后的善后工作  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("test end")  
+if __name__ == '__main__':  
+#构造测试集  
+&nbsp;&nbsp;&nbsp;&nbsp;#调用unittest框架TestSuite()类来创建测试套件  
+&nbsp;&nbsp;&nbsp;&nbsp;suite = unittest.TestSuite()  
+&nbsp;&nbsp;&nbsp;&nbsp;#调用测试套件的addTest()方法来添加测试用例test_add()、test_add2()  
+&nbsp;&nbsp;&nbsp;&nbsp;#TestCount("test_add")表示TestCount类的test_add方法  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(TestCount("test_add"))  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(TestCount("test_add2"))  
+&nbsp;&nbsp;&nbsp;&nbsp;#print (suite)  
+#执行测试,调用unittest框架的TextTestRunner()类，通过它的run()方法来运行suite所组装的测试用例  
+&nbsp;&nbsp;&nbsp;&nbsp;runner = unittest.TextTestRunner()  
+&nbsp;&nbsp;&nbsp;&nbsp;runner.run(suite)
+
 
 

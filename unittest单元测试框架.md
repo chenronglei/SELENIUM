@@ -153,8 +153,32 @@ class Test(unittest.TestCase):
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass  
 if __name__ == '__main__':  
 &nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
-    
-    
+
+- assertIn(first,second,msg=None) 断言第一个参数是否在第二个参数中  
+- assertNotIn(first,second,msg=None) 断言第一个参数是否在第二个参数中  
+> import unittest  
+class Test(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("start")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_case(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = 'lucy1'  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b= 'lucy is good girl'  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertIn(a,b,msg="Wrong!")  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass   
+if __name__ == '__main__':    
+&nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
+
+- assertIs(first,second,msg=None) 断言第一个与第二个参数为同一个对象  
+- assertIsNot(first,second,msg=None) 断言第一个与第二个参数不为同一个对象  
+- assertIsNone(expr,msg=None) 断言表达式是None对象  
+- assertIsNotNone(expr,msg=None) 断言表达式不是None对象  
+- assertIsInstance(obj,cla,msg=None) 断言obj是cls的一个实例  
+- assertIsNotInstance(obj,cla,msg=None) 断言obj不是cls的一个实例 
+
+
+
+    
     
 
 

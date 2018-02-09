@@ -293,21 +293,36 @@ if __name__ == '__main__':
 &nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
 
 runtest.py  
-> from calculator import Count  
-import unittest  
-class TestSub(unittest.TestCase):  
-&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("start sub")  
-&nbsp;&nbsp;&nbsp;&nbsp;def test_sub1(self):  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(5,3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.sub(),2,msg='is not 2')  
-&nbsp;&nbsp;&nbsp;&nbsp;def test_sub2(self):  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(8,4)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.sub(),5,msg='is not 4')  
-&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("end sub")  
+> import unittest  
+import testadd  
+import testsub  
+if __name__ == '__main__':    
+&nbsp;&nbsp;&nbsp;&nbsp;#构造测试集  
+&nbsp;&nbsp;&nbsp;&nbsp;suite = unittest.TestSuite()  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(testadd.TestAdd("test_add1"))  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(testadd.TestAdd("test_add2"))  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(testsub.TestSub("test_sub1"))  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(testsub.TestSub("test_sub2"))  
+&nbsp;&nbsp;&nbsp;&nbsp;#运行测试集合  
+&nbsp;&nbsp;&nbsp;&nbsp;runner = unittest.TextTestRunner()  
+&nbsp;&nbsp;&nbsp;&nbsp;runner.run(suite)  
+
+上例中通过addTest()增加测试用例很麻烦，可以使用TestLoader类的discover()方法让unittest测试框架自动识别测试用例  
+> discover(start_dir, pattern='test*.py',top_level_dir=None)
+start_dir:要测试模块名或测试用例目录 ， 并可递归查到子目录下
+pattern='test*.py' 表示用例文件名的匹配原则  
+top_level_dir=None  测试模块的顶层目录，没有默认是None  
+
+runtest1.py  
+> import unittest  
+#定义测试用例的目录为当前目录  
+test_dir='./'  
+discover = unittest.defaultTestLoader.discover(test_dir,pattern='test*.py')  
 if __name__ == '__main__':  
-&nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
+&nbsp;&nbsp;&nbsp;&nbsp;runner = unittest.TextTestRunner()  
+&nbsp;&nbsp;&nbsp;&nbsp;runner.run(discover)  
+    
+
 
 
     

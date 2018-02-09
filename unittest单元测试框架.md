@@ -258,6 +258,63 @@ testpro/
 &nbsp;&nbsp;&nbsp;&nbsp;testsub.py  
 &nbsp;&nbsp;&nbsp;&nbsp;runtest.py  
 
+testadd.py  
+> from calculator import Count  
+import unittest  
+class TestAdd(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("start add")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_add1(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(3,5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.add(),8,msg='is not 8')  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_add2(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(4,6)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.add(),10,msg='is not 10')  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("end add")  
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
+
+testsub.py  
+> from calculator import Count  
+import unittest  
+class TestSub(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("start sub")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_sub1(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(5,3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.sub(),2,msg='is not 2')  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_sub2(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(8,4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.sub(),5,msg='is not 4')  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("end sub")  
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
+
+runtest.py  
+> from calculator import Count  
+import unittest  
+class TestSub(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("start sub")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_sub1(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(5,3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.sub(),2,msg='is not 2')  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_sub2(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(8,4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.sub(),5,msg='is not 4')  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("end sub")  
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
+
+
+    
+    
+
+
+
   
     
     

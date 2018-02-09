@@ -176,6 +176,80 @@ if __name__ == '__main__':
 - assertIsInstance(obj,cla,msg=None) 断言obj是cls的一个实例  
 - assertIsNotInstance(obj,cla,msg=None) 断言obj不是cls的一个实例 
 
+## 7.1.4 组织单元测试用例
+当我们增加被测功能和相应的测试用例之后，unittest单元测试框架需要扩展和组织新增的测试用例  
+扩展calculator.py的sub()方法
+> from calculator import Count  
+import unittest  
+#创建TestAdd()、TestSub(）两个测试类  
+class TestAdd(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("start add")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_add1(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(3,5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.add(),8,msg='is not 8')  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_add2(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(4,6)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.add(),10,msg='is not 10')  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("end add")  
+class TestSub(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("start sub")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_sub1(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(5,3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.sub(),2,msg='is not 2')  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_sub2(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(8,4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.sub(),4,msg='is not 4')  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("end sub")   
+if __name__ == '__main__':    
+&nbsp;&nbsp;&nbsp;&nbsp;#构造测试集  
+&nbsp;&nbsp;&nbsp;&nbsp;suite = unittest.TestSuite()  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(TestAdd("test_add1"))  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(TestAdd("test_add2"))  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(TestSub("test_sub1"))  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(TestSub("test_sub2"))  
+&nbsp;&nbsp;&nbsp;&nbsp;#运行测试集合  
+&nbsp;&nbsp;&nbsp;&nbsp;runner = unittest.TextTestRunner()  
+&nbsp;&nbsp;&nbsp;&nbsp;runner.run(suite)  
+
+2个类的setUp()和tearDown()所做的事情是一样的，可以封装成一个自己的测试类  
+> from calculator import Count  
+import unittest  
+class MyTest(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test case start")  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test case end")  
+#创建TestAdd()、TestSub(）两个测试类  
+class TestAdd(MyTest):  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_add1(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(3,5)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.add(),8,msg='is not 8')  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_add2(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(4,6)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.add(),10,msg='is not 10')  
+class TestSub(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_sub1(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(5,3)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.sub(),2,msg='is not 2')  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_sub2(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = Count(8,4)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(a.sub(),4,msg='is not 4')  
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;#构造测试集  
+&nbsp;&nbsp;&nbsp;&nbsp;suite = unittest.TestSuite()  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(TestAdd("test_add1"))  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(TestAdd("test_add2"))  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(TestSub("test_sub1"))  
+&nbsp;&nbsp;&nbsp;&nbsp;suite.addTest(TestSub("test_sub2"))  
+&nbsp;&nbsp;&nbsp;&nbsp;#运行测试集合  
+&nbsp;&nbsp;&nbsp;&nbsp;runner = unittest.TextTestRunner()  
+&nbsp;&nbsp;&nbsp;&nbsp;runner.run(suite)  
+    
+    
 
 
     

@@ -248,6 +248,17 @@ if __name__ == '__main__':
 &nbsp;&nbsp;&nbsp;&nbsp;#运行测试集合  
 &nbsp;&nbsp;&nbsp;&nbsp;runner = unittest.TextTestRunner()  
 &nbsp;&nbsp;&nbsp;&nbsp;runner.run(suite)  
+
+## 7.1.5 discover更多测试用例  
+一个实现几十个功能的项目，需要将这些用例按照测试的功能进行拆分，分散到不同的测试文件中  
+对上面的test.py进行测试用例拆分，拆分后的目录结构如下:  
+testpro/  
+&nbsp;&nbsp;&nbsp;&nbsp;calculator.py  
+&nbsp;&nbsp;&nbsp;&nbsp;testadd.py  
+&nbsp;&nbsp;&nbsp;&nbsp;testsub.py  
+&nbsp;&nbsp;&nbsp;&nbsp;runtest.py  
+
+  
     
     
 

@@ -126,8 +126,36 @@ class Test(unittest.TestCase):
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass  
 if __name__ == '__main__':  
 &nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
+
+- assertNotEqual(first,second,msg=None)  与assertEqual()相反  
+- assertTrue(expr,msg=None)  测试表达式是true  
+- assertFalse(expr,msg=None) 测试表达式是flase  
+被测试的count.py  
+> #用于判断质数  
+def is_prime(n):  
+&nbsp;&nbsp;&nbsp;&nbsp;if n <= 1:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return False  
+&nbsp;&nbsp;&nbsp;&nbsp;for i in range(2,n):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(n%i ==0):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return False  
+&nbsp;&nbsp;&nbsp;&nbsp;return True  
+
+测试  
+> from count import is_prime  
+import unittest  
+#创建TestCount类继承TestCase类，TestCase类看出是对特定类进行测试的集合  
+class Test(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("start")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_case(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertTrue(is_prime(8),msg="Your number is not prime!")  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass  
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
     
     
+    
 
 
 

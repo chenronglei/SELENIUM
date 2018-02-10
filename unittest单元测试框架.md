@@ -322,6 +322,12 @@ if __name__ == '__main__':
 &nbsp;&nbsp;&nbsp;&nbsp;runner = unittest.TextTestRunner()  
 &nbsp;&nbsp;&nbsp;&nbsp;runner.run(discover)  
     
+# 7.2 关于unittest还需要知道的  
+## 7.2.1 用例的执行顺序  
+unittest框架默认根据ASCII码的顺序加载测试用例、测试目录和测试文件，数字与字母的顺序为:0~9,A~Z,a~z  
+默认的main()方法、discover()方法使用默认的顺序，如果想要修改测试顺序，需要通过TestSuite类的addTest()方法按照一定顺序来加载  
+## 7.2.2 执行多级目录的用例
+
 
 
 

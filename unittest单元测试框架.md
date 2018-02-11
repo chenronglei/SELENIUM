@@ -330,7 +330,39 @@ unittest框架默认根据ASCII码的顺序加载测试用例、测试目录和�
 当测试用例达到一定量级时，就要考虑划分目录  
 使用discover()方法只能加载start_dir参数定义的目录下的文件，不能加载该目录下子目录的测试文件  
 需要在每个子目录下放一个__init__.py文件，这样discover()方法能加载start_dir参数定义的目录下的子目录下的文件  
-## 7.2.3 跳过测试和预期失败  
+## 7.2.3 跳过测试和预期失败  
+在运行测试时，有时候需要直接跳过某些测试用例，或者当用例符合某个条件时跳过测试，又或者直接将测试用例设置为失败。unittest提供了实现这些需求的装饰器  
+- unittest.skip(reason)  
+无条件跳过装饰的测试，说明跳过测试的原因  
+- unittest.skipIf(condition,reason)  
+跳过装饰的测试，如果条件为真时  
+- unittest.skipUnless(condition,reason)  
+跳过装饰的测试，除非条件为真  
+- unittest.expectedFailure()  
+测试标记为失败。不管测试结果是否为失败，统一标记为失败  
+> import unittest  
+class MyTest(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass  
+&nbsp;&nbsp;&nbsp;&nbsp;@unittest.skip("直接跳过测试")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_add1(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test aaa")  
+&nbsp;&nbsp;&nbsp;&nbsp;@unittest.skipIf(3 > 2,"当条件为True时跳过测试")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_skip_if(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test bbb")  
+&nbsp;&nbsp;&nbsp;&nbsp;@unittest.skipUnless(3 > 2,"当条件为True时执行测试")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_skip_unless(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test ccc")  
+&nbsp;&nbsp;&nbsp;&nbsp;@unittest.expectedFailure  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_expected_failure(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assertEqual(2,3)  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass   
+if __name__ == '__main__':    
+&nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
+
+这些方法同样可以作用于测试类，只需将他们定义在测试类上面即可
+
 
 
 

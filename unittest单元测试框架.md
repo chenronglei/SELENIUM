@@ -361,7 +361,37 @@ class MyTest(unittest.TestCase):
 if __name__ == '__main__':    
 &nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
 
-这些方法同样可以作用于测试类，只需将他们定义在测试类上面即可
+这些方法同样可以作用于测试类，只需将他们定义在测试类上面即可  
+## 7.2.4 fixtures
+unittest提供了更大范围的fixtures,例如对应测试类和模块的fixtures  
+> import unittest  
+def setUpModule():  
+&nbsp;&nbsp;&nbsp;&nbsp;print("test module start >>>>>>")  
+def tearDownModule():  
+&nbsp;&nbsp;&nbsp;&nbsp;print("test module end >>>>>>")  
+class Test(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;@classmethod  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUpClass(cls):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test class start ======")  
+&nbsp;&nbsp;&nbsp;&nbsp;@classmethod  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDownClass(cls):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test class end ======")  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test case start ----->")  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test case end ----->")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_case(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test case1")  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_case2(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("test case2")  
+if __name__ == '__main__':    
+&nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
+
+
+setUpModule()/tearDownModule  在整个模块开始与结束时被执行  
+setUpClass/tearDownClass      在测试类开始与结束时被执行  
+setUp/tearDown                在测试用例的开始与结束时被执行  
+
 
 
 

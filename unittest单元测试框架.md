@@ -392,6 +392,65 @@ setUpModule()/tearDownModule  在整个模块开始与结束时被执行
 setUpClass/tearDownClass      在测试类开始与结束时被执行  
 setUp/tearDown                在测试用例的开始与结束时被执行  
 
+# 7.3 带unittest的脚本分析
+Selenium IDE可以使用unittest来组织、运行测试用例  
+使用Selenium IDE录制一个测试用例后，选择“文件”-“Export Test Case As ...”-"Python2/unittest/WebDriver"保存文件到指定目录。会自动生成unittest框架的脚本  
+> from selenium import webdriver  
+from selenium.webdriver.common.by import By  
+from selenium.webdriver.common.keys import Keys  
+from selenium.webdriver.support.ui import Select  
+from selenium.common.exceptions import NoSuchElementException  
+from selenium.common.exceptions import NoAlertPresentException  
+import unittest, time, re  
+class test(unittest.TestCase):  
+&nbsp;&nbsp;&nbsp;&nbsp;def setUp(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.driver = webdriver.Firefox()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.driver.implicitly_wait(30)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.base_url = "https://www.baidu.com/"  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#定义空的数组，脚本运行的错误信息将被记录到这个数组  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.verificationErrors = []  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#是否继续接受下一个警告  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.accept_next_alert = True  
+&nbsp;&nbsp;&nbsp;&nbsp;def test_73(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver = self.driver  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver.get(self.base_url + "/")  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("kw").click()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("kw").clear()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("kw").send_keys("123")  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("su").click()  
+&nbsp;&nbsp;&nbsp;&nbsp;#def is_element_present()方法用于查找页面原始是否存在  
+&nbsp;&nbsp;&nbsp;&nbsp;def is_element_present(self, how, what):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try: self.driver.find_element(by=how, value=what)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;except NoSuchElementException as e: return False  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return True  
+&nbsp;&nbsp;&nbsp;&nbsp;#def is_alert_present()方法用于判断当前页面是否存在告警框  
+&nbsp;&nbsp;&nbsp;&nbsp;def is_alert_present(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用例捕捉告警信息  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try: self.driver.switch_to_alert()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;except NoAlertPresentException as e: return False  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return True 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关闭警告并获得告警信息  
+&nbsp;&nbsp;&nbsp;&nbsp;def close_alert_and_get_its_text(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert = self.driver.switch_to_alert()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.accept_next_alert:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert.accept()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert.dismiss()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return alert_text  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;finally: self.accept_next_alert = True  
+&nbsp;&nbsp;&nbsp;&nbsp;def tearDown(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.driver.quit()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual([], self.verificationErrors)  
+if __name__ == "__main__":  
+&nbsp;&nbsp;&nbsp;&nbsp;unittest.main()  
+
+# 7.4 编写web测试用例
+方法同7.1.5  
+保存测试结果  
+> python runtest1.py >>report/log.txt 2>&1
+
+
 
 
 

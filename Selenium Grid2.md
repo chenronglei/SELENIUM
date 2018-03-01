@@ -65,4 +65,26 @@ WebDriver类的__init__()初始化方法提供了一个重要信息，即command
 "version"                  浏览器版本  
 "platform": "ANY",         测试平台，any表示任意  
 
+## 9.3.2 Remote实例  
+> from selenium.webdriver import Remote  
+#调用Remote方法  
+driver = Remote(command_executor='http://127.0.0.1:4444/wd/hub',desired_capabilities={'platform':'ANY','browserName':'chrome','version':'','javascriptEnabled':True})  
+driver.get('http://www.baidu.com')  
+driver.find_element_by_id("kw").send_keys("remote")  
+driver.find_element_by_id("su").click()  
+driver.quit()  
+
+Remote()方法配置相当于我们直接使用了webdriver.Chrome(),但是Remote()却大大增加了配置的灵活性  
+注意：需要下载chrome版本对应的webdriver驱动放置到系统路径下，下载路径 http://chromedriver.storage.googleapis.com/index.html
+
+## 9.3.3 参数化平台及浏览器  
+通过Selenium Server可以轻松地创建本地节点和远程节点。而Remote的作用就是配置测试用例在这些节点上执行。  
+在本地启动一个hub和两个node(节点)  
+> java -jar selenium-server-standalone-2.53.0.jar -role hub  
+> java -jar selenium-server-standalone-2.53.0.jar -role node -port 5555  
+> java -jar selenium-server-standalone-2.53.0.jar -role node -port 5556  
+
+修改脚本使其在不同的节点和浏览器上运行 
+执行报错“selenium.common.exceptions.WebDriverException: Message: None”  ： 是版本问题，改成selenium-server-standalone-2.53.0.jar,且执行脚本时，主节点和代理节点都要启动，只启动主节点执行脚本也报错
+
 

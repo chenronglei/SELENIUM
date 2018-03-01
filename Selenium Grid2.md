@@ -21,5 +21,48 @@ Grid可以根据用例中指定的平台配置信息把用例转发给符合匹�
 # 9.3 Remote应用  
 要解释清除Remote的作用不容易，我们可以通过分析Selenium的代码的方式来理解它的作用。这是因为WebDriver针对每一种浏览器都重写WebDriver方法  
 > driver=webdirver.Firefox()  
-  driver=webdriver.Chrome()
-  driver=webdriver.Ie()
+  driver=webdriver.Chrome()  
+  driver=webdriver.Ie()  
+
+## 9.3.1 WebDriver驱动分析  
+在selenium包的webdriver目录下可以发现任意一个驱动的目录下都有一个webdriver.py。除了Firefox、Chrome、IE等驱动外，还包括非常重要的remote。从这个角度看，也可以把remote看作时一种驱动类型。这种驱动类型比较特别，它不是支持某一款特定的浏览器或平台，而是一种配置模式，在这种配置模式下指定任意的平台或浏览器  
+我们脚本中调用Firefox浏览器驱动的路径为：driver=webdirver.Firefox()，那么它时如何指向../selenium/webdriver/firefox/webdriver.py中的WebDriver类的呢？秘密在于../selenium/webdriver/目录下的__init__.py文件  
+> from .firefox.webdriver import WebDriver as Firefox  
+...  
+
+
+其实是它对不同驱动的路径做了简化，并且将不同目录下的WebDriver类重命名为相应的浏览器  
+Firefox和Chrome的WebDriver类都继承RemoteWebDriver类，查看对应的 ../selenium/webdriver/remote目录下的webdriver.py文件  
+> def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub',  
+                 desired_capabilities=None, browser_profile=None, proxy=None,  
+                 keep_alive=False, file_detector=None, options=None):  
+
+WebDriver类的__init__()初始化方法提供了一个重要信息，即command_executor参数，它默认指向本机(127.0.0.1)的4444端口号，通过修改这个参数可以使其指向任意的某台主机  
+浏览器的配置由desired_capabilities参数决定，这个参数的秘密在 ../selenium/webdirver/common/desired_capabilities.py文件中  
+> FIREFOX = {  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"browserName": "firefox",  
+&nbsp;&nbsp;&nbsp;&nbsp;"marionette": True,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"acceptInsecureCerts": True,  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+&nbsp;&nbsp;&nbsp;&nbsp;INTERNETEXPLORER = {  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"browserName": "internet explorer",  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"version": "",  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"platform": "WINDOWS",  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+&nbsp;&nbsp;&nbsp;&nbsp;EDGE = {  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"browserName": "MicrosoftEdge",  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"version": "",  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"platform": "WINDOWS"  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+&nbsp;&nbsp;&nbsp;&nbsp;CHROME = {  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"browserName": "chrome",  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"version": "",  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"platform": "ANY",  
+&nbsp;&nbsp;&nbsp;&nbsp;}  
+
+
+"browserName": "firefox"   浏览器  
+"version"                  浏览器版本  
+"platform": "ANY",         测试平台，any表示任意  
+
+

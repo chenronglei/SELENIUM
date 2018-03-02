@@ -105,7 +105,45 @@ if __name__ == '__main__':
 &nbsp;&nbsp;&nbsp;&nbsp;print('all end: %s' % ctime())  
 
 ## 10.2.3 创建线程类  
-除直接使用Python所提供的线程类外，我们还可以根据需求自定义自己的线程类
+除直接使用Python所提供的线程类外，我们还可以根据需求自定义自己的线程类  
+> from time import sleep,ctime  
+import threading  
+#创建线程类  
+class MyThread(threading.Thread):  
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self,func,args,name=''):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threading.Thread.__init__(self)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.func = func  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.args =args  
+&nbsp;&nbsp;&nbsp;&nbsp;self.name = name  
+&nbsp;&nbsp;&nbsp;&nbsp;def run(self):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.func(*self.args)  
+#创建超级播放器  
+def super_play(file_,time):  
+&nbsp;&nbsp;&nbsp;&nbsp;for i in range(2):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("Start playing: %s! %s" % (file_,ctime()))  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sleep(time)  
+#播放的文件与播放时长  
+lists = {'爱情买卖.mp3':3,'阿凡达.mp4':5,'tree.mp4':4}  
+#创建线程数组  
+threads = []  
+files = range(len(lists))  
+#创建线程  
+for file_,time in lists.items():  
+&nbsp;&nbsp;&nbsp;&nbsp;t = MyThread(super_play,(file_,time),super_play.__name__)  
+&nbsp;&nbsp;&nbsp;&nbsp;threads.append(t)  
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;#启动线程  
+&nbsp;&nbsp;&nbsp;&nbsp;for t in files:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threads[t].start()  
+&nbsp;&nbsp;&nbsp;&nbsp;#守护线程  
+&nbsp;&nbsp;&nbsp;&nbsp;for t in threads:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t.join()  
+&nbsp;&nbsp;&nbsp;&nbsp;print('all end: %s' % ctime())  
+
+
+    
+    
+    
     
     
     

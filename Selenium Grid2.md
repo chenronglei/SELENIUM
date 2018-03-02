@@ -166,6 +166,11 @@ webdriver支持的浏览器目前包括：Firefox,chrome,IE,Edge,opera,safari  
 ## 3.支持模式  
 HtmlUnit和PhantomJS是两个比较特殊的模式，可以看作是伪浏览器，在这种模式下支持html、Java Script等的解析，但不会真正渲染出界面。由于不进行CSS及GUI渲染，所以运行效率上要比真实浏览器快很多，主要用在功能性测试上面  
 
+**HtmlUnit**  
+HtmlUnit是一款开源的Java页面分析工具，读取页面后，可以有效地使用HtmlUnit分析页面上的内容。项目可以模拟浏览器运行，被誉为Java浏览器的开源实现。这个灭有界面的浏览器，其运行速度非常迅速。Selenium Server中同样包含了HtmlUnit驱动  
+首先启动Selenium Server  
+> java -jar selenium-server-standalone.jar  
+
 
 
 

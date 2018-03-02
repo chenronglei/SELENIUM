@@ -113,5 +113,48 @@ for host,browser in lists.items():
 - 执行报错“selenium.common.exceptions.WebDriverException: Message: None”  ： 是版本问题，改成selenium-server-standalone-3.9.1.jar,且执行脚本时，主节点和代理节点都要启动，只启动主节点执行脚本也报错  
 - 注意给chrome,edge浏览器安装webdriver驱动  
 
+**启动远程节点**  
+
+在其他主机上启动node,必须满足以下要求:  
+- 本地hub主机与远程node主机之间可以ping  
+- 远程节点上必须安装用例执行的浏览器和驱动，并且驱动要放在环境变量path的目录下  
+- 远程节点上必须安装selenium  
+- 远程节点必须安装java环境，运行Selenium Server  
+
+*操作步骤*:  
+
+启动本地hub主机  (操作系统:windows 本地主机ip 192.168.202.1)  
+> java -jar E:\python\selenium-server-standalone.jar -role hub  
+
+启动远程node主机 (操作系统:Ubuntu, ip 192.168.202.128)
+> java -jar selenium-server-standalone.jar -role node -port 5557 -hub http://192.168.202.1:4444/grid/register
+
+> from selenium.webdriver import Remote  
+from time import sleep  
+#定义主机和浏览器  
+lists = {'http://192.168.202.128:5557/wd/hub':'firefox','http://127.0.0.1:5556/wd/hub':'MicrosoftEdge','http://127.0.0.1:4444/wd/hub':'chrome'}  
+#通过不同的浏览器执行脚本  
+for host,browser in lists.items():  
+&nbsp;&nbsp;&nbsp;&nbsp;print(host,browser)  
+&nbsp;&nbsp;&nbsp;&nbsp;#版本有问题，如果node节点上有LINUX系统，则在hub节点上执行时会读取到'platform':'LINUX',进行规避  
+&nbsp;&nbsp;&nbsp;&nbsp;if browser == 'chrome':  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver = Remote(command_executor=host,
+desired_capabilities={'platform':'WIN10',
+                                          'browserName':browser,
+                                          'version': '',
+                                          'javascriptEnabled':True
+                                          })  
+&nbsp;&nbsp;&nbsp;&nbsp;else:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver = Remote(command_executor=host,
+                    desired_capabilities={'platform':'ANY',
+                                          'browserName':browser,
+                                          'version': '',
+                                          'javascriptEnabled':True
+                                          })  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.get("http://www.baidu.com")  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("kw").send_keys('browser')  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("su").click()  
+&nbsp;&nbsp;&nbsp;&nbsp;sleep(5)  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.close()  
 
 

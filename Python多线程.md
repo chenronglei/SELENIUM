@@ -45,6 +45,41 @@ threading基于Java的线程模型设计。锁和条件变量在Java中时对象
 我们应该避免使用thread模块，因为它不支持守护线程。当主线程退出时，所有的子线程不管它们是否还在工作，都会别强行退出。有时候我们不希望发生这种行为，这时就引入守护线程的概念  
 threading模块支持守护线程  
 
+> from time import sleep,ctime  
+import threading  
+#听音乐任务  
+def music(func,loop):  
+&nbsp;&nbsp;&nbsp;&nbsp;for i in range(loop):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("I was listening to %s! %s" % (func,ctime()))  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sleep(2)  
+#看电影任务  
+def movie(func,loop):  
+&nbsp;&nbsp;&nbsp;&nbsp;for i in range(loop):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print ("I was at the %s！ %s" % (func,ctime()))  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sleep(5)  
+#创建线程数组  
+threads = []  
+#创建线程t1，并添加到线程数组  
+t1 = threading.Thread(target=music,args=('爱情买卖',2))  
+threads.append(t1)  
+#创建线程t2,并添加到线程数组  
+t2 = threading.Thread(target=movie,args=('tree',2))  
+threads.append(t2)   
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;#启动线程  
+&nbsp;&nbsp;&nbsp;&nbsp;for t in threads:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t.start()  
+&nbsp;&nbsp;&nbsp;&nbsp;#守护线程,join()等待线程终止，入股没有守护进程，可能在线程运行时就打印 all end语句  
+&nbsp;&nbsp;&nbsp;&nbsp;for t in threads:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t.join()  
+&nbsp;&nbsp;&nbsp;&nbsp;print('all end: %s' % ctime())  
+
+上例执行结果是两个子线程music、movie同时执行，总耗时10S,两个线程达到了并行工作  
+
+
+
+    
+    
 
 
 

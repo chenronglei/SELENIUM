@@ -80,11 +80,38 @@ Remote()方法配置相当于我们直接使用了webdriver.Chrome(),但是Remot
 ## 9.3.3 参数化平台及浏览器  
 通过Selenium Server可以轻松地创建本地节点和远程节点。而Remote的作用就是配置测试用例在这些节点上执行。  
 在本地启动一个hub和两个node(节点)  
-> java -jar selenium-server-standalone-2.53.0.jar -role hub  
-> java -jar selenium-server-standalone-2.53.0.jar -role node -port 5555  
-> java -jar selenium-server-standalone-2.53.0.jar -role node -port 5556  
+> java -jar selenium-server-standalone.jar -role hub  
+> java -jar selenium-server-standalone.jar -role node -port 5555  
+> java -jar selenium-server-standalone.jar -role node -port 5556  
 
+
+> from selenium.webdriver import Remote  
+from time import sleep  
+#定义主机和浏览器  
+lists = {'http://127.0.0.1:4444/wd/hub':'chrome',
+         'http://127.0.0.1:5555/wd/hub':'firefox',
+         'http://127.0.0.1:5556/wd/hub':'MicrosoftEdge'}  
+#通过不同的浏览器执行脚本  
+for host,browser in lists.items():  
+&nbsp;&nbsp;&nbsp;&nbsp;print(host,browser)  
+&nbsp;&nbsp;&nbsp;&nbsp;driver = Remote(command_executor=host,
+                    desired_capabilities={'platform':'ANY',
+                                          'browserName':browser,
+                                          'version': '',
+                                          'javascriptEnabled':True
+                                          }
+                    )  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.get("http://www.baidu.com")  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("kw").send_keys('browser')  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("su").click()  
+&nbsp;&nbsp;&nbsp;&nbsp;sleep(5)  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.close()  
+    
+    
 修改脚本使其在不同的节点和浏览器上运行 
-执行报错“selenium.common.exceptions.WebDriverException: Message: None”  ： 是版本问题，改成selenium-server-standalone-2.53.0.jar,且执行脚本时，主节点和代理节点都要启动，只启动主节点执行脚本也报错
+注意:  
+- 执行报错“selenium.common.exceptions.WebDriverException: Message: None”  ： 是版本问题，改成selenium-server-standalone-3.9.1.jar,且执行脚本时，主节点和代理节点都要启动，只启动主节点执行脚本也报错  
+- 注意给chrome,edge浏览器安装webdriver驱动  
+
 
 

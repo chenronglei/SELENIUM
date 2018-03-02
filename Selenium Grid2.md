@@ -161,9 +161,10 @@ desired_capabilities={'platform':'WIN10',
 ## 1.支持平台  
 webdriver支持Android和BlackBerry两个移动平台的浏览器测试。对于在其他平台上进行自动化测试，笔者推荐Appium  
 ## 2.支持浏览器  
-webdriver支持的浏览器目前包括：Firefox,chrome,IE,Edge,opera,safari  
-## 3.支持模式  
-HtmlUnit和PhantomJS是两个比较特殊的模式，可以看作是伪浏览器，在这种模式下支持html、Java Script等的解析，但不会真正渲染出界面。由于不进行CSS及GUI渲染，所以运行效率上要比真实浏览器快很多，主要用在功能性测试上面  
+webdriver支持的浏览器目前包括：Firefox,chrome,IE,Edge,opera,safari  ，取决于浏览器内核  
+浏览器内核，是浏览器采用的渲染引擎，决定了浏览器如何显示网页的内容以及页面的格式信息  
+## 3.支持模式  
+HtmlUnit和PhantomJS是两个比较特殊的模式，可以看作是伪浏览器，在这种模式下支持html、Java Script等的解析，但不会真正渲染出界面。由于不进行CSS及GUI渲染，所以运行效率上要比真实浏览器快很多，主要用在功能性测试上面  
 
 
 

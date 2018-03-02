@@ -171,6 +171,21 @@ HtmlUnit是一款开源的Java页面分析工具，读取页面后，可以有�
 首先启动Selenium Server  
 > java -jar selenium-server-standalone.jar  
 
+> from selenium.webdriver import Remote  
+from selenium.common.exceptions import WebDriverException  
+import time  
+dc = {'browserName':'htmlunit'}  
+driver = Remote(command_executor='http://127.0.0.1:4444/wd/hub',desired_capabilities=dc)
+driver.get("http://www.baidu.com")  
+driver.find_element_by_id("kw").send_keys("htmlunit")  
+driver.find_element_by_id("su").click()  
+#截图会有报错，通过打印标题来判断是否运行成功  
+#driver.get_screenshot_as_file("E:\\python\\3.6\\9\\run.png")  
+print (driver.title)  
+driver.quit()  
+
+这种模式运行脚本不会真正打开浏览器，整个过程都是在后台执行的。为了证明运行是成功的，通过打印标题来说明  
+
 
 
 

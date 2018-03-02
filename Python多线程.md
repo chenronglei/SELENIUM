@@ -140,8 +140,41 @@ if __name__ == '__main__':
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t.join()  
 &nbsp;&nbsp;&nbsp;&nbsp;print('all end: %s' % ctime())  
 
+# 10.3多进程技术  
+多进程multiprocessing模块的使用与多线程threading模块的用法类似。multiprocessing提供了本地和远程的并发性，有效的通过全局解释锁GIL来使用进程（而
+不是线程）  
+由于GIL的存在，在CPU密集型的程序当中，使用多线程并不能有效地利用多核CPU的优势，因为一个解释锁在同一时刻只会有一个线程在执行。每个进程有各自独立的GIL，互不干扰，所以mutiprocessing模块可以充分利用硬件的多处理器来进行工作。多核下，想做并行提升效率，比较通用的方法是使用多进程，能够有效提高执行效率，它支持UNIX和windows系统上运行  
+修改多线程的例子，将threading模块中的Thread方法替换为multiprocessing模块的Process就实现了多进程  
+> from time import sleep,ctime  
+import multiprocessing  
+#创建超级播放器  
+def super_player(file_,time):  
+&nbsp;&nbsp;&nbsp;&nbsp;for i in range(2):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Start playing: %s! %s" % (file_,ctime()))  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sleep(time)  
+#播放的文件与播放时长  
+lists = {'爱情买卖.mp3':3,'阿凡达.mp4':5,'tree.mp4':4}  
+#创建进程数组  
+threads = []  
+files = range(len(lists))  
+#创建进程  
+for file_,time in lists.items():  
+&nbsp;&nbsp;&nbsp;&nbsp;t = multiprocessing.Process(target=super_player,args=(file_,time))  
+&nbsp;&nbsp;&nbsp;&nbsp;threads.append(t)  
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;#启动进程  
+&nbsp;&nbsp;&nbsp;&nbsp;print('start:%s' %ctime())  
+&nbsp;&nbsp;&nbsp;&nbsp;for t in files:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threads[t].start()  
+&nbsp;&nbsp;&nbsp;&nbsp;#守护进程  
+&nbsp;&nbsp;&nbsp;&nbsp;for t in files:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threads[t].join()  
+&nbsp;&nbsp;&nbsp;&nbsp;print('end: %s' % ctime())  
 
-    
+在linux系统上执行的结果与多线程一致，在windows上，由于不支持fork，子进程的内容不能打印
+    
+
+    
     
     
     

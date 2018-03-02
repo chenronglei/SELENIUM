@@ -167,6 +167,7 @@ webdriver支持的浏览器目前包括：Firefox,chrome,IE,Edge,opera,safari  
 HtmlUnit和PhantomJS是两个比较特殊的模式，可以看作是伪浏览器，在这种模式下支持html、Java Script等的解析，但不会真正渲染出界面。由于不进行CSS及GUI渲染，所以运行效率上要比真实浏览器快很多，主要用在功能性测试上面  
 
 **HtmlUnit**  
+
 HtmlUnit是一款开源的Java页面分析工具，读取页面后，可以有效地使用HtmlUnit分析页面上的内容。项目可以模拟浏览器运行，被誉为Java浏览器的开源实现。这个灭有界面的浏览器，其运行速度非常迅速。Selenium Server中同样包含了HtmlUnit驱动  
 首先启动Selenium Server  
 > java -jar selenium-server-standalone.jar  
@@ -186,6 +187,27 @@ driver.quit()
 
 这种模式运行脚本不会真正打开浏览器，整个过程都是在后台执行的。为了证明运行是成功的，通过打印标题来说明  
 
+**PhantomJS模式**  
 
+PhantomJS是一个拥有JavaScript API的无界面WebKit内核，与HtmlUnit类似。PhantomJS是一个浏览器，而且是一个无界面的浏览器。这意味这渲染后的网页实际不会显示，可以将它视为一个可编程的浏览器终端  
+在使用PhantomJS之前，需要先下载  
+> from selenium import webdriver  
+from time import sleep  
+driver = webdriver.PhantomJS()  
+driver.get("http://www.baidu.com")  
+try:  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("kw").send_keys("phantomjs")  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("su").click()  
+&nbsp;&nbsp;&nbsp;&nbsp;sleep(1)  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.get_screenshot_as_file("E:\\python\\3.6\\9\\baidu_ok.png")  
+except WebDriverException as msg:  
+&nbsp;&nbsp;&nbsp;&nbsp;print(msg)  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.get_screenshot_as_file("E:\\python\\3.6\\9\\baidu_error.png")  
+finally:  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.quit()  
+
+
+    
+    
 
 

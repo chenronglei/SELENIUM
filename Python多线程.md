@@ -205,6 +205,7 @@ if __name__ == '__main__':
 proc2 rec: hello  
 proc1 rec: hello, too
 
+- Queue类与Pipe类似，都是先进先出结构，但Queue类允许多个进程放入，多个进程从队列取出对象。Queue类使用Queue(maxsize)创建，maxsize表示队列中可以存放的最大数量  
 
 
     

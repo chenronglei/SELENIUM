@@ -206,6 +206,41 @@ proc2 rec: hello
 proc1 rec: hello, too
 
 - Queue类与Pipe类似，都是先进先出结构，但Queue类允许多个进程放入，多个进程从队列取出对象。Queue类使用Queue(maxsize)创建，maxsize表示队列中可以存放的最大数量  
+> import multiprocessing  
+import os,time  
+def inputQ(queue):  
+&nbsp;&nbsp;&nbsp;&nbsp;info = str(os.getpid()) + '(put):' + str(time.time())  
+&nbsp;&nbsp;&nbsp;&nbsp;queue.put(info)  
+def outputQ(queue,lock):  
+&nbsp;&nbsp;&nbsp;&nbsp;info = queue.get()  
+&nbsp;&nbsp;&nbsp;&nbsp;lock.acquire()  
+&nbsp;&nbsp;&nbsp;&nbsp;print ((str(os.getpid()) + 'get:' + info))  
+&nbsp;&nbsp;&nbsp;&nbsp;lock.release()  
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;record1 = []  
+&nbsp;&nbsp;&nbsp;&nbsp;record2 = []  
+&nbsp;&nbsp;&nbsp;&nbsp;lock = multiprocessing.Lock() #加锁，为防止散乱的打印  
+&nbsp;&nbsp;&nbsp;&nbsp;#multiprocessing.Queue(3)表示队列中最多可以3个对象  
+&nbsp;&nbsp;&nbsp;&nbsp;queue = multiprocessing.Queue(3)  
+&nbsp;&nbsp;&nbsp;&nbsp;#10个对象存入队列  
+&nbsp;&nbsp;&nbsp;&nbsp;for i in range(10):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process = multiprocessing.Process(target=inputQ,args=(queue,))  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process.start()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;record1.append(process)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#取出之前存入队列的10个对象  
+&nbsp;&nbsp;&nbsp;&nbsp;for i in range(10):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process = multiprocessing.Process(target=outputQ,args=(queue,lock))  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process.start()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;record2.append(process)  
+&nbsp;&nbsp;&nbsp;&nbsp;for p in record1:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.join()  
+&nbsp;&nbsp;&nbsp;&nbsp;queue.close()  #没有更多的对象进来，关闭queue  
+&nbsp;&nbsp;&nbsp;&nbsp;for p in record2:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.join()  
+
+
+        
+        
 
 
     

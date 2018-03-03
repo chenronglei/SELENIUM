@@ -182,6 +182,29 @@ if __name__ == '__main__':
 multiprocessing提供了threading包中没有的IPC(进程间通信),效率上更高。应优先考虑Pipe和Queue  
 multiprocessing包中由Pipe类和Queue类来分别支持这两种IPC机制。Pipe和Queue可以用来传送常见的对象  
 - Pipe可以是单向也可以是双向。我们通过multiprocessing.Pipe(duplex=False)创建单向管道（默认为双向）。一个进程从pipe一段输入对象，然后被pipe另一端的进程接收。单向管道只允许管道一段的进程输入，而双向管道则允许从两端输入  
+> import multiprocessing  
+#pipe的某一段调用send()方法来传送对象，另一端用recv()来接收该对象  
+def proc1(pipe):  
+&nbsp;&nbsp;&nbsp;&nbsp;pipe.send('hello')  
+&nbsp;&nbsp;&nbsp;&nbsp;print('proc1 rec:',pipe.recv())  
+def proc2(pipe):  
+&nbsp;&nbsp;&nbsp;&nbsp;print('proc2 rec:',pipe.recv())  
+&nbsp;&nbsp;&nbsp;&nbsp;pipe.send('hello,too')  
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;multiprocessing.freeze_support()  
+&nbsp;&nbsp;&nbsp;&nbsp;#这个pipe是双向的。pipe对象建立的时候，返回一个含有两个元素（分别代表管道的一端）的表  
+&nbsp;&nbsp;&nbsp;&nbsp;pipe = multiprocessing.Pipe()  
+&nbsp;&nbsp;&nbsp;&nbsp;p1 = multiprocessing.Process(target=proc1,args=(pipe[0],))  
+&nbsp;&nbsp;&nbsp;&nbsp;p2 = multiprocessing.Process(target=proc2,args=(pipe[1],))  
+&nbsp;&nbsp;&nbsp;&nbsp;p1.start()  
+&nbsp;&nbsp;&nbsp;&nbsp;p2.start()  
+&nbsp;&nbsp;&nbsp;&nbsp;p1.join()  
+&nbsp;&nbsp;&nbsp;&nbsp;p2.join()  
+
+结果如下（linux平台）  :
+proc2 rec: hello  
+proc1 rec: hello, too
+
 
 
     

@@ -238,8 +238,9 @@ if __name__ == '__main__':
 &nbsp;&nbsp;&nbsp;&nbsp;for p in record2:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.join()  
 
-# 10.4应用于自动化测试  
-> from threading import Thread  
+# 10.4应用于自动化测试  
+## 10.4.1多线程执行测试用例
+> from threading import Thread  
 from selenium import webdriver  
 from time import ctime,sleep  
 #测试用例  
@@ -275,7 +276,11 @@ if __name__ == '__main__':
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threads[t].join()  
 &nbsp;&nbsp;&nbsp;&nbsp;print('end:%s' % ctime()) 
 
-通过不同的浏览器来启动不同的线程
+通过不同的浏览器来启动不同的线程  
+## 10.4.2 多线程分布式执行测试用例  
+Selenium grid只是提供多系统、都浏览器的执行环境，Selenium Grid本身并不提供并行的执行测试用例。下面使用多线程技术结合Selenium Grid实现分布式并行地执行测试用例  
+
+
     
         
 

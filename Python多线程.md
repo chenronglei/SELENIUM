@@ -239,7 +239,44 @@ if __name__ == '__main__':
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.join()  
 
 # 10.4应用于自动化测试  
+> from threading import Thread  
+from selenium import webdriver  
+from time import ctime,sleep  
+#测试用例  
+def test_baidu(browser,search):  
+&nbsp;&nbsp;&nbsp;&nbsp;print('start:%s' % ctime())  
+&nbsp;&nbsp;&nbsp;&nbsp;print('browser:%s,' % browser)  
+&nbsp;&nbsp;&nbsp;&nbsp;if browser == "edge":  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver = webdriver.Edge()  
+&nbsp;&nbsp;&nbsp;&nbsp;elif browser == "chrome":  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver = webdriver.Chrome()  
+&nbsp;&nbsp;&nbsp;&nbsp;elif browser == "ff":  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver = webdriver.Firefox()  
+&nbsp;&nbsp;&nbsp;&nbsp;else:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("browser 参数有误，只能为edge\ff\chrome")  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.get('http://www.baidu.com')  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("kw").send_keys(search)  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("su").click()  
+&nbsp;&nbsp;&nbsp;&nbsp;sleep(2)  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.quit()  
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;#启动参数（指定浏览器与百度搜索内容）  
+&nbsp;&nbsp;&nbsp;&nbsp;lists = {'chrome':'threading','edge':'webdriver','ff':'python'}  
+&nbsp;&nbsp;&nbsp;&nbsp;threads = []  
+&nbsp;&nbsp;&nbsp;&nbsp;files = range(len(lists))  
+&nbsp;&nbsp;&nbsp;&nbsp;#创建线程  
+&nbsp;&nbsp;&nbsp;&nbsp;for browser,search in lists.items():  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t = Thread(target=test_baidu,args=(browser,search))  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threads.append(t)  
+&nbsp;&nbsp;&nbsp;&nbsp;#启动线程  
+&nbsp;&nbsp;&nbsp;&nbsp;for t in files:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threads[t].start()  
+&nbsp;&nbsp;&nbsp;&nbsp;for t in files:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threads[t].join()  
+&nbsp;&nbsp;&nbsp;&nbsp;print('end:%s' % ctime()) 
 
+通过不同的浏览器来启动不同的线程
+    
         
 
 

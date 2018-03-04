@@ -278,8 +278,47 @@ if __name__ == '__main__':
 
 通过不同的浏览器来启动不同的线程  
 ## 10.4.2 多线程分布式执行测试用例  
-Selenium grid只是提供多系统、都浏览器的执行环境，Selenium Grid本身并不提供并行的执行测试用例。下面使用多线程技术结合Selenium Grid实现分布式并行地执行测试用例  
+Selenium grid只是提供多系统、都浏览器的执行环境，Selenium Grid本身并不提供并行的执行测试用例。下面使用多线程技术结合Selenium Grid实现分布式并行地执行测试用例  
+启动selenium Server  
+> java -jar E:\python\selenium-server-standalone.jar -role hub  
+java -jar E:\python\selenium-server-standalone.jar -role node -port 5555  
+java -jar selenium-server-standalone.jar -role node -port 5557 -hub http://192.168.202.1:4444/grid/register  
 
+
+> from threading import Thread  
+from selenium import webdriver  
+from time import ctime,sleep  
+#测试用例  
+def test_baidu(host,browser):  
+&nbsp;&nbsp;&nbsp;&nbsp;print('start:%s' % ctime())   
+&nbsp;&nbsp;&nbsp;&nbsp;print(host,browser)  
+&nbsp;&nbsp;&nbsp;&nbsp;dc = {'browserName':browser}  
+&nbsp;&nbsp;&nbsp;&nbsp;driver = webdriver.Remote(command_executor=host,desired_capabilities=dc)  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.get('http://www.baidu.com')  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("kw").send_keys(browser)  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.find_element_by_id("su").click()  
+&nbsp;&nbsp;&nbsp;&nbsp;driver.close()  
+if __name__ == '__main__':  
+&nbsp;&nbsp;&nbsp;&nbsp;#启动参数（指定运行主机与浏览器）  
+&nbsp;&nbsp;&nbsp;&nbsp;lists = {'http://127.0.0.1:4444/wd/hub':'chrome','http://127.0.0.1:5555/wd/hub':'firefox',
+             'http://192.168.202.128:5557/wd/hub':'firefox'}  
+&nbsp;&nbsp;&nbsp;&nbsp;threads = []  
+&nbsp;&nbsp;&nbsp;&nbsp;files = range(len(lists))  
+&nbsp;&nbsp;&nbsp;&nbsp;#创建线程  
+&nbsp;&nbsp;&nbsp;&nbsp;for host,browser in lists.items():  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t = Thread(target=test_baidu,args=(host,browser))  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threads.append(t)  
+&nbsp;&nbsp;&nbsp;&nbsp;#启动线程  
+&nbsp;&nbsp;&nbsp;&nbsp;for t in files:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threads[t].start()  
+&nbsp;&nbsp;&nbsp;&nbsp;for t in files:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threads[t].join()  
+&nbsp;&nbsp;&nbsp;&nbsp;print('end:%s' % ctime())  
+
+
+    
+    
+     
 
     
         

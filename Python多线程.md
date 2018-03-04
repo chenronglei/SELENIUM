@@ -238,9 +238,9 @@ if __name__ == '__main__':
 &nbsp;&nbsp;&nbsp;&nbsp;for p in record2:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.join()  
 
+# 10.4应用于自动化测试  
 
-        
-        
+        
 
 
     

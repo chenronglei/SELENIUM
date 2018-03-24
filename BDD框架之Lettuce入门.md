@@ -34,4 +34,36 @@ Lettuce虽然使用了自然语言的描述，却也有语法规则。非常简�
 - When(当)        test run(unittest的触发测试执行)
 - Then(则)        assert(unittest的断言，验证结果)    
 
+steps.py  
+> from lettuce import *  
+#@step是Python装饰器的写法，也就是have_the_number()函数由@step()进行装饰  
+#I have the number (\d+)对应于zero.feature文件中的第六句"Givern I have the number 0"
+@step('I have the number (\d+)')  
+def have_the_number(step,number):  
+&nbsp;&nbsp;&nbsp;&nbsp;world.number = int(number)  
+#把have_the_number()函数中的world.number的变量0作为factorial()函数的入参  
+#I compute its factorial对应于zero.feature文件中的第七句"When I compute its factorial"    
+@step('I compute its factorial')  
+def compute_its_fatorial(step):  
+&nbsp;&nbsp;&nbsp;&nbsp;world.number = factorial(world.number)  
+#I see the number (\d+)对应于zero.feature文件中的第八句"Then I see the number1"    
+@step('I see the number (\d+)')  
+def check_number(step,expected):  
+&nbsp;&nbsp;&nbsp;&nbsp;expected = int(expected)  
+&nbsp;&nbsp;&nbsp;&nbsp;assert world.number == expected,"Got %d" % world.number  
+def factorial(number):  
+&nbsp;&nbsp;&nbsp;&nbsp;number = int(number)  
+&nbsp;&nbsp;&nbsp;&nbsp;if (number == 0) or (number == 1):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 1  
+&nbsp;&nbsp;&nbsp;&nbsp;else:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return number  
 
+注意：py及feature对应的语句内容需要一致，不区分大小写    
+**运行Lettuce**    
+运行cmd,切换到tests目录下，执行"Lettuce"命令    
+运行过程很清晰，首先是zero.feature文件的功能描述(feature),然后是场景(scenario)，每一步对应的steps.py中哪一行    
+最好给出运行的结果    
+
+
+        
+        

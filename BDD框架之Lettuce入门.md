@@ -58,12 +58,33 @@ def factorial(number):
 &nbsp;&nbsp;&nbsp;&nbsp;else:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return number  
 
-注意：py及feature对应的语句内容需要一致，不区分大小写    
-**运行Lettuce**    
+注意：py及feature对应的语句内容需要一致，不区分大小写    
+**运行Lettuce**    
 运行cmd,切换到tests目录下，执行"Lettuce"命令    
 运行过程很清晰，首先是zero.feature文件的功能描述(feature),然后是场景(scenario)，每一步对应的steps.py中哪一行    
 最好给出运行的结果    
 
+## 12.3.3 添加测试场景  
+zero.feature  :
 
-        
-        
+> **Feature**: Compute factorial  
+&nbsp;&nbsp;&nbsp;&nbsp;In order to play with Lettuce  
+&nbsp;&nbsp;&nbsp;&nbsp;As beginners  
+&nbsp;&nbsp;&nbsp;&nbsp;We'll implement factorial  
+&nbsp;&nbsp;**Scenario**: Factorial of 0  
+&nbsp;&nbsp;&nbsp;&nbsp; **Given** I have the number 0  
+&nbsp;&nbsp;&nbsp;&nbsp;**When** I compute its factorial  
+&nbsp;&nbsp;&nbsp;&nbsp;**Then** I see the number 1  
+&nbsp;&nbsp;Scenario: Factorial of 1    
+&nbsp;&nbsp;&nbsp;&nbsp;Given I have the number 1    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When I compute its factorial    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then I see the number 1    
+&nbsp;&nbsp;Scenario: Factorial of 2    
+&nbsp;&nbsp;&nbsp;&nbsp;Given I have the number 2    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When I compute its factorial    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then I see the number 2    
+&nbsp;&nbsp;Scenario: Factorial of 3    
+&nbsp;&nbsp;&nbsp;&nbsp;Given I have the number 3    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When I compute its factorial    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then I see the number 6 
+

@@ -56,7 +56,7 @@ def factorial(number):
 &nbsp;&nbsp;&nbsp;&nbsp;if (number == 0) or (number == 1):  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 1  
 &nbsp;&nbsp;&nbsp;&nbsp;else:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return number  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return number*factorial(n-1)  
 
 注意：py及feature对应的语句内容需要一致，不区分大小写    
 **运行Lettuce**    
@@ -88,3 +88,9 @@ zero.feature  :
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When I compute its factorial    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then I see the number 6 
 
+## 12.3.4 Lettuce的目录结构与执行过程  
+BDD的开发主要与两类文件打交道:feature文件和相应的step文件    
+feature文件是以feature为后缀名的文件,以Given-When-Then的方式描述系统的场景(scenarios)行为  
+step文件为普通的python程序文件,Feature文件的每一个Given-When-Then步骤在step文件中都有对应的python执行代码，两类文件通过正则表达式相关联  
+
+Feature文件一定要在features目录下，否则会提示“could not find features at \features”。而step文件可以放在任意目录下都能被执行到

@@ -129,7 +129,7 @@ baidu.feature文件遵循BBD行为描述规则，编写如下内容:  
 
 在step_definitions目录下编写相应的测试脚本  
 steps.py  
-> # coding=utf-8  
+> /# coding=utf-8  
 from lettuce import *  
 from lettuce_webdriver.util import assert_false  
 from lettuce_webdriver.util import AssertContextManager  
@@ -158,4 +158,16 @@ def baidu_click(step,field_name):
 @step('I close browser')  
 def close_browser(step):  
 &nbsp;&nbsp;&nbsp;&nbsp;world.browser.quit()  
-    
+    
+在support目录下创建terrain.py文件，用于定义测试脚本的基本配置  
+terrain.py  
+> from selenium import webdriver  
+from lettuce import before,world  
+import lettuce_webdriver.webdriver  
+@before.all  
+def setup_browser():  
+&nbsp;&nbsp;&nbsp;&nbsp;world.browser = webdriver.Firefox()  
+
+terrain文件配置浏览器驱动，作用于所有测试用例  
+
+在.../tests/目录下输入'Lettuce'命令执行测试脚本

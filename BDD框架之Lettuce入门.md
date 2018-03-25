@@ -93,4 +93,69 @@ BDD的开发主要与两类文件打交道:feature文件和相应的step文件 �
 feature文件是以feature为后缀名的文件,以Given-When-Then的方式描述系统的场景(scenarios)行为  
 step文件为普通的python程序文件,Feature文件的每一个Given-When-Then步骤在step文件中都有对应的python执行代码，两类文件通过正则表达式相关联  
 
-Feature文件一定要在features目录下，否则会提示“could not find features at \features”。而step文件可以放在任意目录下都能被执行到
+Feature文件一定要在features目录下，否则会提示“could not find features at \features”。而step文件可以放在任意目录下都能被执行到  
+
+# 12.4 Lettuce_webdriver自动化测试  
+Lettuce_webdriver属于独立的python第三方扩展，它支持通过Lettuce运行Selenium WebDriver自动化测试用例  
+**安装Lettuce**  
+**安装Lettuce_webdriver**  
+> pip install lettuce_webdriver
+**安装nose**  
+nose继承自unittest,属于第三方的python单元测试框架，更容易使用。Lettuce_webdriver的运行依赖于nose框架
+> pip install nose
+
+同样以百度搜索为例，创建如下目录结构  
+tests/features/
+&nbsp;&nbsp;&nbsp;&nbsp;step_definitions/  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;steps.py  
+&nbsp;&nbsp;&nbsp;&nbsp;support/  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;terrain.py  
+&nbsp;&nbsp;&nbsp;&nbsp;baidu.feature  
+
+baidu.feature文件遵循BBD行为描述规则，编写如下内容:  
+> Feature: Baidu search test case  
+&nbsp;&nbsp;Scenario: search selenium  
+&nbsp;&nbsp;&nbsp;&nbsp;Given I go to "http://www.baidu.com/"  
+&nbsp;&nbsp;&nbsp;&nbsp;When I fill in field with id "kw" with "selenium"  
+&nbsp;&nbsp;&nbsp;&nbsp;And I click id "su" with baidu once  
+&nbsp;&nbsp;&nbsp;&nbsp;Then I should see "51testing.org" within 2 second      
+&nbsp;&nbsp;Scenario: search lettuce_webdriver  
+&nbsp;&nbsp;&nbsp;&nbsp;Given I go to "http://www.baidu.com/"  
+&nbsp;&nbsp;&nbsp;&nbsp;When I fill in field with id "kw" with "webdriver"  
+&nbsp;&nbsp;&nbsp;&nbsp;And I click id "su" with baidu once  
+&nbsp;&nbsp;&nbsp;&nbsp;Then I should see "blog.csdn.net" within 2 second  
+&nbsp;&nbsp;&nbsp;&nbsp;#多个Scenario，最后一个close浏览器  
+&nbsp;&nbsp;&nbsp;&nbsp;Then I close browser  
+
+在step_definitions目录下编写相应的测试脚本  
+steps.py  
+> # coding=utf-8  
+from lettuce import *  
+from lettuce_webdriver.util import assert_false  
+from lettuce_webdriver.util import AssertContextManager  
+def input_frame(browser,attribute):  
+&nbsp;&nbsp;&nbsp;&nbsp;xpath = "//input[@id='%s']" % attribute  
+&nbsp;&nbsp;&nbsp;&nbsp;elems = browser.find_elements_by_xpath(xpath)  
+&nbsp;&nbsp;&nbsp;&nbsp;return elems[0] if elems else False  
+def click_button(browser,attribute):  
+&nbsp;&nbsp;&nbsp;&nbsp;xpath = "//input[@id='%s']" % attribute  
+&nbsp;&nbsp;&nbsp;&nbsp;elems = browser.find_elements_by_xpath(xpath)  
+&nbsp;&nbsp;&nbsp;&nbsp;return elems[0] if elems else False  
+#定位输入框输入关键字  
+@step('I fill in field with id "(.*?)" with "(.*?)"')  
+def baidu_text(step,field_name,value):  
+&nbsp;&nbsp;&nbsp;&nbsp;with AssertContextManager(step):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_field = input_frame(world.browser,field_name)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_field.clear()  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_field.send_keys(value)  
+#点击“百度一下”按钮  
+@step('I click id "(.*?)" with baidu once')  
+def baidu_click(step,field_name):  
+&nbsp;&nbsp;&nbsp;&nbsp;with AssertContextManager(step):  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;click_field = click_button(world.browser,field_name)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;click_field.click()  
+#关闭浏览器  
+@step('I close browser')  
+def close_browser(step):  
+&nbsp;&nbsp;&nbsp;&nbsp;world.browser.quit()  
+    

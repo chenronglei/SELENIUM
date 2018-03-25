@@ -96,13 +96,14 @@ step文件为普通的python程序文件,Feature文件的每一个Given-When-The
 Feature文件一定要在features目录下，否则会提示“could not find features at \features”。而step文件可以放在任意目录下都能被执行到  
 
 # 12.4 Lettuce_webdriver自动化测试  
-Lettuce_webdriver属于独立的python第三方扩展，它支持通过Lettuce运行Selenium WebDriver自动化测试用例  
+Lettuce_webdriver属于独立的python第三方扩展，它支持通过Lettuce运行Selenium WebDriver自动化测试用例  
 **安装Lettuce**  
 **安装Lettuce_webdriver**  
-> pip install lettuce_webdriver
+> pip install lettuce_webdriver 
+
 **安装nose**  
-nose继承自unittest,属于第三方的python单元测试框架，更容易使用。Lettuce_webdriver的运行依赖于nose框架
-> pip install nose
+nose继承自unittest,属于第三方的python单元测试框架，更容易使用。Lettuce_webdriver的运行依赖于nose框架  
+> pip install nose  
 
 同样以百度搜索为例，创建如下目录结构  
 tests/features/

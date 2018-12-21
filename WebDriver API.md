@@ -6,8 +6,8 @@ WebDriver提供八种元素定位方法，Python语言中，对应的方法如�
 - name            find_element_by_name()  
 - class name      find_element_by_class_name()  
 - tag name        find_element_by_tag_name()  
-- link test       find_element_by_link_test()  
-- partial link test find_element_by_partial_link_test()  
+- link test       find_element_by_link_text()  
+- partial link test find_element_by_partial_link_text()  
 - xpath           find_element_by_xpath()  
 - css selector    find_element_by_css_selector()  
 

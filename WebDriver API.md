@@ -15,6 +15,8 @@ WebDriver提供八种元素定位方法，Python语言中，对应的方法如�
 **firefox浏览器使用54.0版本安装Firebug,firepath插件，新版本的Firefox浏览器不支持Firebug,firepath**  
 **如果使用firefox浏览器新版本，直接 [WEB开发者] - [查看器] 代替Firebug功能**
 **定位到元素后，直接鼠标右击 - 复制 - CSS路径或Xpath 来进行CSS定位或Xpath定位**
+
+**定位的属性值不能包含空格，如果包含空格，只填空格前部分**
 ## 4.1.1 id定位
 id在html是唯一的  
 [定位方法](https://jingyan.baidu.com/article/19192ad81ab005e53e5707d6.html)  

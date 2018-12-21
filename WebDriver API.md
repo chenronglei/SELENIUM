@@ -217,6 +217,7 @@ title,current_url,text分别获取当前页面的标题、URL和指定元素的�
 from selenium.webdriver.common.by import By  
 from selenium.webdriver.support.ui import WebDriverWait  
 from selenium.webdriver.support import expected_conditions as EC
+
 driver=webdriver.Firefox()  
 driver.get("http://www.baidu.com")  
 element = WebDriverWait(driver,5,0.5).until(EC.presence_of_element_located((By.ID,"kw")))  

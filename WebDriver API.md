@@ -77,8 +77,8 @@ CSS语法更加简洁，XPATH学习更简单。只要掌握一种就可以解决
 ## 4.1.9 用By定位元素  
 使用之前需要导入类  
 from selenium.webdriver.common.by import By  
-> find.element(By.ID,"kw")  
-find.element(By.NAME,"wd")  
+> find_element(By.ID,"kw")  
+find_element(By.NAME,"wd")  
 ...  
 
 find.element()与find_element_by_xxx 底层实现是一致的，推荐使用前面介绍的find_element_by_xxx方法  
